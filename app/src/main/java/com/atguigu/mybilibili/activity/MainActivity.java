@@ -9,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.atguigu.mybilibili.R;
@@ -37,8 +36,6 @@ public class MainActivity extends BaseActivity {
     ViewPager viewpager;
     @Bind(R.id.coordinatorlayout)
     CoordinatorLayout coordinatorlayout;
-    @Bind(R.id.listview)
-    ListView listview;
     @Bind(R.id.drawerlayout)
     DrawerLayout drawerlayout;
 
