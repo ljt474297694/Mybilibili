@@ -8,10 +8,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
 import com.atguigu.mybilibili.R;
+import com.atguigu.mybilibili.adapter.OriginalAdapter;
 import com.atguigu.mybilibili.fragment.OriginalFragment;
 
 import java.util.ArrayList;
@@ -74,12 +76,77 @@ public class OriginalActivity extends BaseActivity {
     protected void initData(String jaon, String error) {
         fragments = new ArrayList<>();
         fragments.add(new OriginalFragment());
+        fragments.add(new OriginalFragment());
+        fragments.add(new OriginalFragment());
 
+        viewpager.setAdapter(new OriginalAdapter(getSupportFragmentManager(),fragments));
+        tabLayout.setupWithViewPager(viewpager);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
 
     @Override
     protected int setLayoutId() {
         return R.layout.activity_original;
     }
-
+    private int startY;
+    private int startX;
+    private boolean isScrollY;
+    private boolean isFirst;
+    private boolean isOpen = true;
+    //tollBar 回弹效果
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        int eventY = (int) ev.getY();
+        int eventX = (int) ev.getX();
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                startY = eventY;
+                startX = eventX;
+                isFirst = true;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (isFirst) {
+                    if (Math.abs(eventX - startX) > Math.abs(eventY - startY) && Math.abs(eventX - startX) > toolBar.getHeight()*0.30) {
+                        isScrollY = false;
+                        isFirst = false;
+                        appbar.setExpanded(isOpen);
+                    } else if (Math.abs(eventY - startY) > Math.abs(eventX - startX) && Math.abs(eventY - startY) > toolBar.getHeight()*0.30) {
+                        isScrollY = true;
+                        isFirst = false;
+                    }
+                }
+                if (isOpen) {
+                    if (startY < eventY) {
+                        startY = eventY;
+                    }
+                } else {
+                    if (startY > eventY) {
+                        startY = eventY;
+                    }
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                if (isScrollY) {
+                    if (isOpen) {
+                        if (startY - eventY > toolBar.getHeight() * 0.36) {
+                            appbar.setExpanded(false);
+                            isOpen = false;
+                        } else {
+                            appbar.setExpanded(true);
+                            isOpen = true;
+                        }
+                    } else {
+                        if (eventY - startY > toolBar.getHeight() * 0.36) {
+                            appbar.setExpanded(true);
+                            isOpen = true;
+                        } else {
+                            appbar.setExpanded(false);
+                            isOpen = false;
+                        }
+                    }
+                }
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 }

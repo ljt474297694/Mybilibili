@@ -1,6 +1,7 @@
 package com.atguigu.mybilibili.activity;
 
 import android.graphics.Color;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,8 @@ public class HuatiActivity extends BaseActivity {
     Toolbar toolBar;
     @Bind(R.id.recyclerview)
     RecyclerView recyclerview;
+    @Bind(R.id.swiperefreshlayout)
+    SwipeRefreshLayout swiperefreshlayout;
 
     @Override
     protected String setUrl() {
@@ -39,6 +42,12 @@ public class HuatiActivity extends BaseActivity {
                 finish();
             }
         });
+        swiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
     }
 
     @Override
@@ -51,6 +60,7 @@ public class HuatiActivity extends BaseActivity {
 
     @Override
     protected void initData(String json, String error) {
+        swiperefreshlayout.setRefreshing(false);
         if (TextUtils.isEmpty(json)) {
             Log.e("TAG", "HuatiActivity initData()" + error);
         } else {
@@ -66,11 +76,12 @@ public class HuatiActivity extends BaseActivity {
 
     private void setAdapter(List<DiscoverHuatiBean.ListBean> list) {
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
-        recyclerview.setAdapter(new HuatiAdapter(this,list));
+        recyclerview.setAdapter(new HuatiAdapter(this, list));
     }
 
     @Override
     protected int setLayoutId() {
         return R.layout.activity_huati;
     }
+
 }

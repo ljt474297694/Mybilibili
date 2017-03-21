@@ -22,7 +22,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initListener();
     }
 
-    private   void initDataNet(){
+    private void initDataNet(){
         if(TextUtils.isEmpty(setUrl())) {
             initData(null,"url为空无法请求数据");
            return ;
@@ -39,7 +39,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         });
     }
-
+    protected void refresh(){
+        initDataNet();
+    }
     protected abstract String setUrl();
 
     protected abstract void initListener();

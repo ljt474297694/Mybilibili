@@ -14,10 +14,15 @@
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefreshlayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#eaeaea" />
+        android:layout_weight="1">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#eaeaea" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.atguigu.mybilibili.activity;
 
 import android.graphics.Color;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,8 @@ public class HuoDongActivity extends BaseActivity {
     Toolbar toolBar;
     @Bind(R.id.recyclerview)
     RecyclerView recyclerview;
+    @Bind(R.id.swiperefreshlayout)
+    SwipeRefreshLayout swiperefreshlayout;
 
     @Override
     protected String setUrl() {
@@ -39,6 +42,12 @@ public class HuoDongActivity extends BaseActivity {
                 finish();
             }
         });
+        swiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
     }
 
     @Override
@@ -50,8 +59,9 @@ public class HuoDongActivity extends BaseActivity {
 
     @Override
     protected void initData(String json, String error) {
+        swiperefreshlayout.setRefreshing(false);
         if (TextUtils.isEmpty(json)) {
-           Log.e("TAG", "HuoDongActivity initData()"+error);
+            Log.e("TAG", "HuoDongActivity initData()" + error);
         } else {
             JSONObject jsonObject = JSONObject.parseObject(json);
             Integer code = jsonObject.getInteger("code");
@@ -65,11 +75,12 @@ public class HuoDongActivity extends BaseActivity {
 
     private void setAdapter(List<DiscoverHuatiBean.ListBean> list) {
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
-        recyclerview.setAdapter(new HuatiAdapter(this,list));
+        recyclerview.setAdapter(new HuatiAdapter(this, list));
     }
 
     @Override
     protected int setLayoutId() {
         return R.layout.activity_huo_dong;
     }
+
 }
