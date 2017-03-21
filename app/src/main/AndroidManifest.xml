@@ -20,9 +20,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HuatiActivity" />
-        <activity android:name=".activity.HuoDongActivity" />
-        <activity android:name=".activity.OriginalActivity"></activity>
+        <activity
+            android:name=".activity.HuatiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HuoDongActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OriginalActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

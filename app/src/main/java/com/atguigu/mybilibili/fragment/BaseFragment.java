@@ -48,6 +48,15 @@ public abstract class BaseFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        initNetData();
+
+
+    }
+    protected void refresh(){
+        initNetData();
+    }
+
+    private void initNetData() {
         if(!TextUtils.isEmpty(setUrl())) {
             NetUtils.getInstance().okhttpUtilsget(setUrl(), new NetUtils.resultJson() {
                 @Override
@@ -63,8 +72,6 @@ public abstract class BaseFragment extends Fragment {
         }else{
             initData(null,"url为空无法请求数据");
         }
-
-
     }
 
     protected abstract String setUrl();

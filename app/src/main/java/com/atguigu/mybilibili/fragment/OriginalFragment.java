@@ -1,5 +1,6 @@
 package com.atguigu.mybilibili.fragment;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -25,10 +26,17 @@ import butterknife.Bind;
 public class OriginalFragment extends BaseFragment {
     @Bind(R.id.recyclerview)
     RecyclerView recyclerview;
+    @Bind(R.id.swiperefreshlayout)
+    SwipeRefreshLayout swiperefreshlayout;
 
     @Override
     protected void initListener() {
-
+        swiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
     }
 
     @Override
@@ -43,6 +51,7 @@ public class OriginalFragment extends BaseFragment {
 
     @Override
     protected void initData(String json, String error) {
+        swiperefreshlayout.setRefreshing(false);
         if (TextUtils.isEmpty(json)) {
             Log.e("TAG", "OriginalFragment initData()" + error);
         } else {
@@ -57,8 +66,9 @@ public class OriginalFragment extends BaseFragment {
     }
 
     private void setAdapter(List<DiscoverOriginalBean.DataBean> data) {
-        recyclerview.setAdapter(new OriginalFragmentAdapter(mContext,data));
+        recyclerview.setAdapter(new OriginalFragmentAdapter(mContext, data));
         recyclerview.setLayoutManager(new LinearLayoutManager(mContext));
     }
+
 
 }

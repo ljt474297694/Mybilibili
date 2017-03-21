@@ -107,6 +107,7 @@ public class DiscoverFragment extends BaseFragment {
                 startActivity(OriginalActivity.class);
                 break;
             case R.id.tv_quanqu:
+                startActivity(OriginalActivity.class);
                 break;
         }
     }

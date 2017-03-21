@@ -42,6 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void refresh(){
         initDataNet();
     }
+
     protected abstract String setUrl();
 
     protected abstract void initListener();
