@@ -51,7 +51,7 @@ public class HuatiAdapter extends RecyclerView.Adapter<HuatiAdapter.ViewHolder> 
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static  class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.iv_icon)
         ImageView ivIcon;
         @Bind(R.id.tv_content)

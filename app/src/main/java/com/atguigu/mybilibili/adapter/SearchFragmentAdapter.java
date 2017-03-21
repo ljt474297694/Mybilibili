@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atguigu.mybilibili.R;
-import com.atguigu.mybilibili.bean.DiscoverOriginalBean;
+import com.atguigu.mybilibili.bean.SearchBean;
 import com.atguigu.mybilibili.utils.BitmapUtils;
 
 import java.util.List;
@@ -23,39 +23,38 @@ import butterknife.ButterKnife;
  * 功能: xxxx
  */
 
-public class OriginalFragmentAdapter extends RecyclerView.Adapter<OriginalFragmentAdapter.ViewHolder> {
+public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAdapter.ViewHolder> {
 
 
-    private List<DiscoverOriginalBean.DataBean> datas;
+    private  List<SearchBean.DataBean.ItemsBean.ArchiveBean> data;
     private Context mContext;
 
-    public OriginalFragmentAdapter(Context mContext, List<DiscoverOriginalBean.DataBean> data) {
+    public SearchFragmentAdapter(Context mContext, SearchBean.DataBean data) {
         this.mContext = mContext;
-        this.datas = data;
+        this.data = data.getItems().getArchive();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_original, parent, false));
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_search, parent, false));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        DiscoverOriginalBean.DataBean dataBean = datas.get(position);
-        BitmapUtils.glideToImage(dataBean.getCover(),holder.ivIcon);
-        holder.tvName.setText("up:"+dataBean.getName());
-        holder.tvTitle.setText(dataBean.getTitle());
-        holder.tvPlay.setText("综合评分:"+dataBean.getPlay());
-
+        SearchBean.DataBean.ItemsBean.ArchiveBean archiveBean = data.get(position);
+        holder.tvName.setText(archiveBean.getAuthor());
+        holder.tvTitle.setText(archiveBean.getTitle());
+        holder.tvPlay.setText("播放:"+archiveBean.getPlay());
+        BitmapUtils.glideToImage(archiveBean.getCover(),holder.ivIcon);
     }
 
     @Override
     public int getItemCount() {
-        return datas.size();
+        return data.size();
     }
 
 
-    static  class ViewHolder  extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.iv_icon)
         ImageView ivIcon;
         @Bind(R.id.tv_title)
@@ -64,9 +63,11 @@ public class OriginalFragmentAdapter extends RecyclerView.Adapter<OriginalFragme
         TextView tvName;
         @Bind(R.id.tv_play)
         TextView tvPlay;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
     }
+
 }

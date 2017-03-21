@@ -36,7 +36,6 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(mContext,setLayoutId(),null);
         ButterKnife.bind(this, view);
-        initListener();
         return view;
     }
 
@@ -47,10 +46,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         initNetData();
-
-
+        initListener();
     }
     protected void refresh(){
         initNetData();

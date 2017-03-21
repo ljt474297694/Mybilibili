@@ -1,7 +1,7 @@
 package com.atguigu.mybilibili.activity;
 
 import android.support.design.widget.TabLayout;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -11,8 +11,13 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.mybilibili.R;
+import com.atguigu.mybilibili.adapter.SearchAdapter;
 import com.atguigu.mybilibili.bean.SearchBean;
+import com.atguigu.mybilibili.fragment.SearchFragment;
 import com.atguigu.mybilibili.utils.AppNetConfig;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -23,9 +28,12 @@ public class SearchActivity extends BaseActivity {
     EditText etSearch;
     @Bind(R.id.tabLayout)
     TabLayout tabLayout;
-    @Bind(R.id.recyclerview)
-    RecyclerView recyclerview;
+    @Bind(R.id.viewpager)
+    ViewPager viewpager;
     private String search;
+    List<SearchFragment> fragments;
+    private SearchAdapter adapter;
+    private SearchBean.DataBean data;
 
     @Override
     protected String setUrl() {
@@ -44,7 +52,7 @@ public class SearchActivity extends BaseActivity {
             search = "bilibili";
         }
         etSearch.setText(search);
-
+        etSearch.setSelection(search.length());
 
     }
 
@@ -65,7 +73,18 @@ public class SearchActivity extends BaseActivity {
 
     private void setAdapter(SearchBean.DataBean data) {
 
-//        recyclerview.setAdapter();
+        fragments = new ArrayList<>();
+        fragments.add(new SearchFragment(data));
+        fragments.add(new SearchFragment(data));
+        fragments.add(new SearchFragment(data));
+        fragments.add(new SearchFragment(data));
+        Log.e("TAG", "SearchActivity setAdapter()");
+        adapter = new SearchAdapter(getSupportFragmentManager(), fragments, data.getNav().get(1).getTotal());
+        viewpager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewpager);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+
+
     }
 
     @Override
@@ -81,8 +100,19 @@ public class SearchActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_search:
-                Toast.makeText(SearchActivity.this, "搜索", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(SearchActivity.this, "搜索", Toast.LENGTH_SHORT).show();
+                search();
                 break;
+        }
+    }
+
+    private void search() {
+        String str = etSearch.getText().toString().trim();
+        if (TextUtils.isEmpty(str)) {
+            Toast.makeText(SearchActivity.this, "内容为空无法搜索", Toast.LENGTH_SHORT).show();
+        } else {
+            search = str;
+            refresh();
         }
     }
 
