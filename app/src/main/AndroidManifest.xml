@@ -29,7 +29,8 @@
         <activity
             android:name=".activity.OriginalActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

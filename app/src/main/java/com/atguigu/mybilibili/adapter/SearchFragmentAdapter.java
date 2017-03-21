@@ -42,7 +42,7 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         SearchBean.DataBean.ItemsBean.ArchiveBean archiveBean = data.get(position);
-        holder.tvName.setText(archiveBean.getAuthor());
+        holder.tvName.setText("up:"+archiveBean.getAuthor());
         holder.tvTitle.setText(archiveBean.getTitle());
         holder.tvPlay.setText("播放:"+archiveBean.getPlay());
         BitmapUtils.glideToImage(archiveBean.getCover(),holder.ivIcon);

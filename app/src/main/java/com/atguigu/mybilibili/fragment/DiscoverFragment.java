@@ -102,10 +102,14 @@ public class DiscoverFragment extends BaseFragment {
 
 
 
-    @OnClick({R.id.tv_xingququan, R.id.tv_huatizhongxin, R.id.tv_huodongzhongxin, R.id.tv_yuanchuang, R.id.tv_quanqu})
+    @OnClick({R.id.tv_search,R.id.tv_xingququan, R.id.tv_huatizhongxin, R.id.tv_huodongzhongxin, R.id.tv_yuanchuang, R.id.tv_quanqu})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tv_search:
+                startActivity(new Intent(mContext,SearchActivity.class).putExtra("search",""));
+                break;
             case R.id.tv_xingququan:
+
                 break;
             case R.id.tv_huatizhongxin:
                 startActivity(HuatiActivity.class);

@@ -4,8 +4,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -42,14 +45,33 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
+        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId,
+                                          KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND
+                        || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    //让mPasswordEdit获取输入焦点
+                    String str = etSearch.getText().toString().trim();
+                    if (TextUtils.isEmpty(str)) {
+                        Toast.makeText(SearchActivity.this, "内容为空无法搜索", Toast.LENGTH_SHORT).show();
+                    } else {
+                        search = str;
+                        refresh();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
+
 
     @Override
     protected void initView() {
         if (!TextUtils.isEmpty(getIntent().getStringExtra("search"))) {
             search = getIntent().getStringExtra("search");
         } else {
-            search = "bilibili";
+            search = "";
         }
         etSearch.setText(search);
         etSearch.setSelection(search.length());
@@ -78,7 +100,6 @@ public class SearchActivity extends BaseActivity {
         fragments.add(new SearchFragment(data));
         fragments.add(new SearchFragment(data));
         fragments.add(new SearchFragment(data));
-        Log.e("TAG", "SearchActivity setAdapter()");
         adapter = new SearchAdapter(getSupportFragmentManager(), fragments, data.getNav().get(1).getTotal());
         viewpager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewpager);
