@@ -29,5 +29,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:design:25.1.0'
     compile 'com.zhy:okhttputils:2.6.2'
-    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.alibaba:fastjson:1.1.56.android'
+    compile 'com.zhy:flowlayout-lib:1.0.3'
 }

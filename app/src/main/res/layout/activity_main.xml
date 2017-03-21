@@ -85,4 +85,5 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/left_header_layout"
         app:menu="@menu/menu_left" />
+
 </android.support.v4.widget.DrawerLayout>
