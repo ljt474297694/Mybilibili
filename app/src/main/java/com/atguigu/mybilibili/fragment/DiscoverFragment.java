@@ -1,5 +1,6 @@
 package com.atguigu.mybilibili.fragment;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.activity.HuatiActivity;
 import com.atguigu.mybilibili.activity.HuoDongActivity;
 import com.atguigu.mybilibili.activity.OriginalActivity;
+import com.atguigu.mybilibili.activity.SearchActivity;
 import com.atguigu.mybilibili.bean.DiscoverTagBean;
 import com.atguigu.mybilibili.utils.AppNetConfig;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -45,7 +47,6 @@ public class DiscoverFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
-
     }
 
     @Override
@@ -71,7 +72,6 @@ public class DiscoverFragment extends BaseFragment {
                 Log.e("TAG", "DiscoverFragment initData()联网失败");
             }
         }
-
     }
 
     private void setAdapter(List<DiscoverTagBean.DataBean.ListBean> list) {
@@ -88,6 +88,16 @@ public class DiscoverFragment extends BaseFragment {
                 return view;
             }
         });
+        flowlayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                String str = ((TextView) view).getText().toString().trim();
+                startActivity(new Intent(mContext,SearchActivity.class).putExtra("search",str));
+                return true;
+            }
+        });
+
+
     }
 
 

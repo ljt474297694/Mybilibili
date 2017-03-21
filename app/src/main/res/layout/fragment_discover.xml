@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="#eaeaea">
 
-   nd <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:background="#ffffff"
+            android:gravity="center_vertical"
             android:drawableLeft="@drawable/ic_hint_search"
             android:drawablePadding="5dp"
             android:padding="7dp"
