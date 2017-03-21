@@ -9,6 +9,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.activity.HuatiActivity;
+import com.atguigu.mybilibili.activity.HuoDongActivity;
+import com.atguigu.mybilibili.activity.OriginalActivity;
 import com.atguigu.mybilibili.bean.DiscoverTagBean;
 import com.atguigu.mybilibili.utils.AppNetConfig;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -94,13 +96,15 @@ public class DiscoverFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_xingququan:
-                startActivity(HuatiActivity.class);
                 break;
             case R.id.tv_huatizhongxin:
+                startActivity(HuatiActivity.class);
                 break;
             case R.id.tv_huodongzhongxin:
+                startActivity(HuoDongActivity.class);
                 break;
             case R.id.tv_yuanchuang:
+                startActivity(OriginalActivity.class);
                 break;
             case R.id.tv_quanqu:
                 break;

@@ -55,10 +55,10 @@ public class MainActivity extends BaseActivity {
                 int menuItemId = item.getItemId();
 
                 if (menuItemId == R.id.menu_download) {
-                    Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
 
                 } else if (menuItemId == R.id.menu_search) {
-                    Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
 
                 }
                 return true;
@@ -93,9 +93,6 @@ public class MainActivity extends BaseActivity {
     protected int setLayoutId() {
         return R.layout.activity_main;
     }
-
-
-
 
 
     private int startY;

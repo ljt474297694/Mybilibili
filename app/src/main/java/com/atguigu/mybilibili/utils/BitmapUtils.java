@@ -6,6 +6,10 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.widget.ImageView;
+
+import com.atguigu.mybilibili.app.MyApplication;
+import com.bumptech.glide.Glide;
 
 /**
  * Created by 李金桐 on 2017/3/15.
@@ -23,7 +27,6 @@ public class BitmapUtils {
     一般情况下我们都是使用的ARGB_8888，由此可知它是最占内存的，因为一个像素占32位，
     8位=1字节，所以一个像素占4字节的内存。假设有一张480x800的图片，
     如果格式为ARGB_8888，那么将会占用1500KB的内存。*/
-
 
     public static Bitmap circleBitmap(Bitmap source) {
         //获取Bitmap的宽度
@@ -45,17 +48,20 @@ public class BitmapUtils {
         //在画布上绘制bitmap
         canvas.drawBitmap(source, 0, 0, paint);
         return bitmap;
-
     }
 
     //实现图片的压缩处理
     //设置宽高必须使用浮点型，否则导致压缩的比例：0
-    public static Bitmap zoom(Bitmap source, float width , float height){
+    public static Bitmap zoom(Bitmap source, float width, float height) {
         Matrix matrix = new Matrix();
         //图片的压缩处理
-        matrix.postScale(width / source.getWidth(),height / source.getHeight());
+        matrix.postScale(width / source.getWidth(), height / source.getHeight());
         Bitmap bitmap = Bitmap.createBitmap(source, 0, 0,
                 source.getWidth(), source.getHeight(), matrix, false);
         return bitmap;
+    }
+
+    public static void glideToImage(String url,ImageView imageView) {
+        Glide.with(MyApplication.getInstance()).load(url).into(imageView);
     }
 }

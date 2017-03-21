@@ -19,7 +19,7 @@ import java.util.List;
 
 import butterknife.Bind;
 
-public class HuatiActivity extends BaseActivity {
+public class HuoDongActivity extends BaseActivity {
 
     @Bind(R.id.toolBar)
     Toolbar toolBar;
@@ -28,7 +28,7 @@ public class HuatiActivity extends BaseActivity {
 
     @Override
     protected String setUrl() {
-        return AppNetConfig.DISCOVER_HUATI;
+        return AppNetConfig.DISCOVER_HUODONG;
     }
 
     @Override
@@ -44,22 +44,21 @@ public class HuatiActivity extends BaseActivity {
     @Override
     protected void initView() {
         toolBar.setNavigationIcon(R.drawable.ucrop_ic_next);
-        toolBar.setTitle("话题中心");
+        toolBar.setTitle("活动中心");
         toolBar.setTitleTextColor(Color.WHITE);
-
     }
 
     @Override
     protected void initData(String json, String error) {
         if (TextUtils.isEmpty(json)) {
-            Log.e("TAG", "HuatiActivity initData()" + error);
+           Log.e("TAG", "HuoDongActivity initData()"+error);
         } else {
             JSONObject jsonObject = JSONObject.parseObject(json);
             Integer code = jsonObject.getInteger("code");
             if (code == 0) {
                 setAdapter(JSON.parseObject(json, DiscoverHuatiBean.class).getList());
             } else {
-                Log.e("TAG", "HuatiActivity initData()联网失败");
+                Log.e("TAG", "HuoDongActivity initData()联网失败");
             }
         }
     }
@@ -71,6 +70,6 @@ public class HuatiActivity extends BaseActivity {
 
     @Override
     protected int setLayoutId() {
-        return R.layout.activity_huati;
+        return R.layout.activity_huo_dong;
     }
 }
