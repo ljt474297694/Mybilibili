@@ -16,6 +16,8 @@ public class AppNetConfig {
     //原创排行榜----原创
     public static final String DISCOVER_ORIGINAL="http://app.bilibili.com/x/v2/rank?appkey=1d8b6e7d45233436&build=501000&mobi_app=android&order=origin&platform=android&pn=1&ps=20&ts=1490015891000&sign=1a5a1c73e3b23be37fb13ee0178ceef0";
 
+    public static final String LIVE="http://live.bilibili.com/AppNewIndex/common?_device=android&appkey=1d8b6e7d45233436&build=501000&mobi_app=android&platform=android&scale=hdpi&ts=1490013188000&sign=92541a11ed62841120e786e637b9db3b";
+
     public static  String search (String search){
         return "http://app.bilibili.com/x/v2/search?appkey=1d8b6e7d45233436&build=501000&duration=0&keyword="+search+"&mobi_app=android&platform=android&pn=1&ps=20";
     }
