@@ -77,12 +77,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:drawableLeft="@drawable/ic_watching"
                     android:layout_centerInParent="true"
                     android:layout_marginEnd="4dp"
                     android:drawablePadding="3dp"
                     android:padding="3dp"
                     android:textColor="#71000000"
-                    android:textSize="12sp"/>
+                    android:textSize="10sp"/>
 
 
             </RelativeLayout>

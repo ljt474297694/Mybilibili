@@ -1,13 +1,21 @@
 package com.atguigu.mybilibili.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.atguigu.mybilibili.R;
+import com.atguigu.mybilibili.adapter.RecommendAdapter;
+import com.atguigu.mybilibili.bean.RecommendBean;
+import com.atguigu.mybilibili.utils.AppNetConfig;
+
+import java.util.List;
+
+import butterknife.Bind;
 
 /**
  * Created by 李金桐 on 2017/3/21.
@@ -15,13 +23,80 @@ import android.widget.TextView;
  * 功能: 推荐
  */
 
-public class RecommendFragment extends Fragment {
-    @Nullable
+public class RecommendFragment extends BaseFragment {
+
+    @Bind(R.id.recyclerview)
+    RecyclerView recyclerview;
+    @Bind(R.id.swiperefreshlayout)
+    SwipeRefreshLayout swiperefreshlayout;
+    private RecommendAdapter adapter;
+    private boolean isLoadMore;
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        TextView view = new TextView(getActivity());
-        view.setText("推荐");
-        view.setGravity(Gravity.CENTER);
-        return view;
+    protected void initListener() {
+        swiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+                isLoadMore = false;
+            }
+        });
     }
+
+    @Override
+    protected int setLayoutId() {
+        return R.layout.fragment_recommend;
+    }
+
+    @Override
+    protected String setUrl() {
+        return AppNetConfig.RECOMMEND;
+    }
+
+    @Override
+    protected void initData(String json, String error) {
+        swiperefreshlayout.setRefreshing(false);
+        if (TextUtils.isEmpty(json)) {
+            Log.e("TAG", "RecommendFragment initData()"+error);
+        } else {
+            JSONObject jsonObject = JSONObject.parseObject(json);
+            Integer code = jsonObject.getInteger("code");
+            if (code == 0) {
+                setAdapter(JSON.parseObject(json, RecommendBean.class).getData());
+            } else {
+                Log.e("TAG", "RecommendFragment initData()联网失败");
+            }
+        }
+    }
+
+    private void setAdapter(final List<RecommendBean.DataBean> data) {
+        if(adapter==null) {
+            adapter = new RecommendAdapter(mContext, data);
+            recyclerview.setAdapter(adapter);
+            GridLayoutManager manager = new GridLayoutManager(mContext, 2, GridLayoutManager.VERTICAL, false);
+            manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    if(position>=data.size()-1) {
+                        refresh();
+                        isLoadMore = true;
+                    }
+                    return 1;
+                }
+            });
+            recyclerview.setLayoutManager(manager);
+        }else{
+            if(isLoadMore) {
+
+                int size = adapter.datas.size();
+                adapter.datas.addAll(data);
+                adapter.notifyItemRangeChanged(size-1,adapter.datas.size()-size);
+            }else{
+                adapter.datas = data;
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+    }
+
+
 }

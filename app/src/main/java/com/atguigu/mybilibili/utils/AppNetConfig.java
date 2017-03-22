@@ -21,4 +21,7 @@ public class AppNetConfig {
     public static  String search (String search){
         return "http://app.bilibili.com/x/v2/search?appkey=1d8b6e7d45233436&build=501000&duration=0&keyword="+search+"&mobi_app=android&platform=android&pn=1&ps=20";
     }
+    //推荐
+    public static final String RECOMMEND ="http://app.bilibili.com/x/feed/index?appkey=1d8b6e7d45233436&build=501000&idx=1490013261&mobi_app=android&network=wifi&platform=android&pull=true&style=2&ts=1490015599000&sign=af4edc66aef7e443c98c28de2b660aa4";
+
 }

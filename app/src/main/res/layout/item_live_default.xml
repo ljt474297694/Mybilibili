@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/iv_icon"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_margin="5dp" />
 
         <TextView
@@ -49,6 +49,8 @@
             android:textSize="14sp" />
 
         <ImageView
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -78,6 +80,10 @@
             android:textSize="12sp" />
 
         <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:drawablePadding="5dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/tv_refresh"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
