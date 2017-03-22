@@ -31,13 +31,14 @@ public class RecommendFragment extends BaseFragment {
     SwipeRefreshLayout swiperefreshlayout;
     private RecommendAdapter adapter;
     private boolean isLoadMore;
+
     @Override
     protected void initListener() {
         swiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refresh();
                 isLoadMore = false;
+                refresh();
             }
         });
     }
@@ -56,7 +57,7 @@ public class RecommendFragment extends BaseFragment {
     protected void initData(String json, String error) {
         swiperefreshlayout.setRefreshing(false);
         if (TextUtils.isEmpty(json)) {
-            Log.e("TAG", "RecommendFragment initData()"+error);
+            Log.e("TAG", "RecommendFragment initData()" + error);
         } else {
             JSONObject jsonObject = JSONObject.parseObject(json);
             Integer code = jsonObject.getInteger("code");
@@ -69,31 +70,29 @@ public class RecommendFragment extends BaseFragment {
     }
 
     private void setAdapter(final List<RecommendBean.DataBean> data) {
-        if(adapter==null) {
+        if (!isLoadMore) {
+            Log.e("TAG", "RecommendFragment setAdapter()3");
             adapter = new RecommendAdapter(mContext, data);
             recyclerview.setAdapter(adapter);
             GridLayoutManager manager = new GridLayoutManager(mContext, 2, GridLayoutManager.VERTICAL, false);
             manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    if(position>=data.size()-1) {
-                        refresh();
-                        isLoadMore = true;
+                    if (position >= data.size() - 1) {
+                        if(!isLoadMore) {
+                            isLoadMore = true;
+                            refresh();
+                        }
                     }
                     return 1;
                 }
             });
             recyclerview.setLayoutManager(manager);
-        }else{
-            if(isLoadMore) {
-
-                int size = adapter.datas.size();
-                adapter.datas.addAll(data);
-                adapter.notifyItemRangeChanged(size-1,adapter.datas.size()-size);
-            }else{
-                adapter.datas = data;
-                adapter.notifyDataSetChanged();
-            }
+        } else {
+            int size = adapter.datas.size();
+            adapter.datas.addAll(data);
+            adapter.notifyItemRangeChanged(size - 1, adapter.datas.size() - size);
+            isLoadMore = false;
         }
 
     }
