@@ -63,7 +63,9 @@ public class RecommendFragment extends BaseFragment {
 
     @Override
     protected void initData(String json, String error) {
-        swiperefreshlayout.setRefreshing(false);
+        if(swiperefreshlayout!=null) {
+            swiperefreshlayout.setRefreshing(false);
+        }
         if (TextUtils.isEmpty(json)) {
             Log.e("TAG", "RecommendFragment initData()" + error);
         } else {
@@ -101,7 +103,7 @@ public class RecommendFragment extends BaseFragment {
             int size = adapter.datas.size();
             adapter.datas.addAll(data);
             adapter.notifyItemRangeChanged(size - 1, adapter.datas.size() - size);
-            //上啦更多完成后 赋值 以便继续上啦
+            //上拉更多完成后 赋值 以便继续上拉
             isLoadMore = false;
         }
     }

@@ -6,11 +6,11 @@ import android.view.View;
 /**
  * Created by 李金桐 on 2017/3/21.
  * QQ: 474297694
- * 功能: xxxx
+ * 功能: LiveBaseViewHodler
  */
 
-public abstract class LiveBaseViewHodler extends RecyclerView.ViewHolder {
-    public LiveBaseViewHodler(View itemView) {
+public abstract class BaseViewHodler extends RecyclerView.ViewHolder {
+    public BaseViewHodler(View itemView) {
         super(itemView);
     }
     public  abstract  void setData();

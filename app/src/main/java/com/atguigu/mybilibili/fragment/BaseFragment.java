@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends Fragment {
 
     protected Context mContext;
-
+    private boolean isHide;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +36,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(mContext,setLayoutId(),null);
         ButterKnife.bind(this, view);
+        isHide = true;
         return view;
     }
 
@@ -54,17 +55,21 @@ public abstract class BaseFragment extends Fragment {
     }
 
     private void initNetData() {
-        showLoad();
+        if(isHide)  showLoad();
         if(!TextUtils.isEmpty(setUrl())) {
             NetUtils.getInstance().okhttpUtilsget(setUrl(), new NetUtils.resultJson() {
                 @Override
                 public void onResponse(String json) {
-                    initData(json,null);
+                    if(isHide) {
+                        initData(json,null);
+                    }
                 }
 
                 @Override
                 public void onError(String error) {
-                    initData(null,error);
+                    if(isHide) {
+                        initData(null,error);
+                    }
                 }
             });
         }else{
@@ -81,11 +86,12 @@ public abstract class BaseFragment extends Fragment {
         startActivity(new Intent(mContext,clazz));
     }
 
-    protected abstract void initData(String jaon,String error) ;
+    protected abstract void initData(String json,String error) ;
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        isHide = false;
     }
 }

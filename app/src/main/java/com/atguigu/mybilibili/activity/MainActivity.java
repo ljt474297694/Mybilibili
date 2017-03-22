@@ -1,7 +1,9 @@
 package com.atguigu.mybilibili.activity;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -38,7 +40,8 @@ public class MainActivity extends BaseActivity {
     CoordinatorLayout coordinatorlayout;
     @Bind(R.id.drawerlayout)
     DrawerLayout drawerlayout;
-
+    @Bind(R.id.navigation)
+    NavigationView navigationview;
     List<Fragment> fragments;
     private HomeAdapter homeAdapter;
 
@@ -86,6 +89,14 @@ public class MainActivity extends BaseActivity {
 
         tabLayout.setupWithViewPager(viewpager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+
+        navigationview.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+              drawerlayout.closeDrawers();
+                return true;
+            }
+        });
     }
 
 

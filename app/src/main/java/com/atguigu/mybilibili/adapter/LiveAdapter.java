@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
  * 功能: xxxx
  */
 
-public class LiveAdapter extends RecyclerView.Adapter<LiveBaseViewHodler> {
+public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
     private static final int DEFAULT = 1;
     private static LiveBean.DataBean datas;
     private static Context mContext;
@@ -55,7 +55,7 @@ public class LiveAdapter extends RecyclerView.Adapter<LiveBaseViewHodler> {
     }
 
     @Override
-    public LiveBaseViewHodler onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHodler onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case BANNER:
                 return new BannerViewHodler(inflater.inflate(R.layout.item_live_banner, parent, false));
@@ -66,7 +66,7 @@ public class LiveAdapter extends RecyclerView.Adapter<LiveBaseViewHodler> {
     }
 
     @Override
-    public void onBindViewHolder(LiveBaseViewHodler holder, int position) {
+    public void onBindViewHolder(BaseViewHodler holder, int position) {
         holder.setData();
     }
 
@@ -75,7 +75,7 @@ public class LiveAdapter extends RecyclerView.Adapter<LiveBaseViewHodler> {
         return 1 + datas.getPartitions().size();
     }
 
-    static class DefaultViewHolder extends LiveBaseViewHodler {
+    static class DefaultViewHolder extends BaseViewHodler {
         @Bind(R.id.iv_icon)
         ImageView ivIcon;
         @Bind(R.id.tv_number)
@@ -86,6 +86,8 @@ public class LiveAdapter extends RecyclerView.Adapter<LiveBaseViewHodler> {
         TextView tvMore;
         @Bind(R.id.tv_refresh)
         TextView tvRefresh;
+        @Bind(R.id.tv_name)
+        TextView tvName;
 
         public DefaultViewHolder(View itemView) {
             super(itemView);
@@ -102,6 +104,7 @@ public class LiveAdapter extends RecyclerView.Adapter<LiveBaseViewHodler> {
             BitmapUtils.glideToImage(src, ivIcon);
             tvNumber.setText(partitionsBean.getPartition().getCount() + "");
             gridview.setAdapter(new GridViewHolder(partitionsBean.getLives()));
+            tvName.setText(partitionsBean.getPartition().getName());
         }
     }
 
@@ -171,7 +174,7 @@ public class LiveAdapter extends RecyclerView.Adapter<LiveBaseViewHodler> {
         }
     }
 
-    static class BannerViewHodler extends LiveBaseViewHodler {
+    static class BannerViewHodler extends BaseViewHodler {
         @Bind(R.id.banner)
         Banner banner;
 
@@ -193,6 +196,10 @@ public class LiveAdapter extends RecyclerView.Adapter<LiveBaseViewHodler> {
             List<String> images = new ArrayList<>();
             for (int i = 0; i < datas.getBanner().size(); i++) {
                 images.add(datas.getBanner().get(i).getImg());
+            }
+
+            if(datas.getBanner().size()==1 ){
+                images.add(datas.getBanner().get(0).getImg());
             }
             banner.setImages(images);
             banner.start();

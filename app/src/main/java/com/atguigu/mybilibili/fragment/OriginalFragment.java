@@ -56,7 +56,9 @@ public class OriginalFragment extends BaseFragment {
 
     @Override
     protected void initData(String json, String error) {
-        swiperefreshlayout.setRefreshing(false);
+        if(swiperefreshlayout!=null) {
+            swiperefreshlayout.setRefreshing(false);
+        }
         if (TextUtils.isEmpty(json)) {
             Log.e("TAG", "OriginalFragment initData()" + error);
         } else {
