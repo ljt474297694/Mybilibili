@@ -76,12 +76,13 @@
             android:padding="10dp"
             android:text="查看更多"
             android:background="@color/white"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/black_80"
             android:textSize="12sp" />
 
         <TextView
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="10dp"
             android:drawablePadding="5dp"
             android:layout_marginTop="10dp"
             android:id="@+id/tv_refresh"

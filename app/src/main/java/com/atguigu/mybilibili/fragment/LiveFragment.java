@@ -43,7 +43,12 @@ public class LiveFragment extends BaseFragment {
     protected int setLayoutId() {
         return R.layout.fragment_live;
     }
-
+    @Override
+    protected void showLoad() {
+        super.showLoad();
+        swiperefreshlayout.setColorSchemeResources(R.color.colorPrimary);
+        swiperefreshlayout.setRefreshing(true);
+    }
     @Override
     protected String setUrl() {
         return AppNetConfig.LIVE;

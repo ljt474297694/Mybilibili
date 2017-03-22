@@ -44,7 +44,15 @@ public class RecommendFragment extends BaseFragment {
     }
 
     @Override
+    protected void showLoad() {
+        super.showLoad();
+        swiperefreshlayout.setColorSchemeResources(R.color.colorPrimary);
+        swiperefreshlayout.setRefreshing(true);
+    }
+
+    @Override
     protected int setLayoutId() {
+
         return R.layout.fragment_recommend;
     }
 
@@ -71,13 +79,14 @@ public class RecommendFragment extends BaseFragment {
 
     private void setAdapter(final List<RecommendBean.DataBean> data) {
         if (!isLoadMore) {
-            Log.e("TAG", "RecommendFragment setAdapter()3");
             adapter = new RecommendAdapter(mContext, data);
             recyclerview.setAdapter(adapter);
             GridLayoutManager manager = new GridLayoutManager(mContext, 2, GridLayoutManager.VERTICAL, false);
             manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
+                    //当显示最后一条数据的时候会回调多次 所以刷新过一次后才进行下次刷新
+                    //刷新后isLoadMore才会=false
                     if (position >= data.size() - 1) {
                         if(!isLoadMore) {
                             isLoadMore = true;
@@ -92,9 +101,9 @@ public class RecommendFragment extends BaseFragment {
             int size = adapter.datas.size();
             adapter.datas.addAll(data);
             adapter.notifyItemRangeChanged(size - 1, adapter.datas.size() - size);
+            //上啦更多完成后 赋值 以便继续上啦
             isLoadMore = false;
         }
-
     }
 
 

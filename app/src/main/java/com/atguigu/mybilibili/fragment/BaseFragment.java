@@ -54,6 +54,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     private void initNetData() {
+        showLoad();
         if(!TextUtils.isEmpty(setUrl())) {
             NetUtils.getInstance().okhttpUtilsget(setUrl(), new NetUtils.resultJson() {
                 @Override
@@ -69,6 +70,9 @@ public abstract class BaseFragment extends Fragment {
         }else{
             initData(null,"url为空无法请求数据");
         }
+    }
+
+    protected void showLoad() {
     }
 
     protected abstract String setUrl();

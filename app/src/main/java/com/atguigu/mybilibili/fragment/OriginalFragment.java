@@ -38,7 +38,12 @@ public class OriginalFragment extends BaseFragment {
             }
         });
     }
-
+    @Override
+    protected void showLoad() {
+        super.showLoad();
+        swiperefreshlayout.setColorSchemeResources(R.color.colorPrimary);
+        swiperefreshlayout.setRefreshing(true);
+    }
     @Override
     protected int setLayoutId() {
         return R.layout.fragment_original;
