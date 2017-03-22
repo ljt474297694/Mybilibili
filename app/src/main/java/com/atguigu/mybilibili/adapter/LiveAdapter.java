@@ -49,7 +49,6 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
         if (position == BANNER) {
             return BANNER;
         } else {
-
             return DEFAULT;
         }
     }
@@ -198,7 +197,7 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
                 images.add(datas.getBanner().get(i).getImg());
             }
 
-            if(datas.getBanner().size()==1 ){
+            if(datas.getBanner().size()==1){
                 images.add(datas.getBanner().get(0).getImg());
             }
             banner.setImages(images);
