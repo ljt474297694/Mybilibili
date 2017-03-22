@@ -107,7 +107,7 @@ public class PartitionAdapter extends RecyclerView.Adapter<BaseViewHodler> {
                 gridview.setAdapter(new ItemGridViewHolder(dataBean));
             } else {
                 while(TextUtils.isEmpty(dataBean.getTitle())) {
-                    dataBean = data.get((int) Math.random()*14);
+                    dataBean = data.get((int) Math.random()*10);
                 }
                 ivIcon.setBackgroundResource(getIds(dataBean.getTitle()));
                 tvName.setText(dataBean.getTitle());
@@ -184,7 +184,6 @@ public class PartitionAdapter extends RecyclerView.Adapter<BaseViewHodler> {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             if(!TextUtils.isEmpty(datas.getTitle())) {
-
                 if(position>datas.getBody().size()-1) {
                     position=datas.getBody().size()-1;
                 }

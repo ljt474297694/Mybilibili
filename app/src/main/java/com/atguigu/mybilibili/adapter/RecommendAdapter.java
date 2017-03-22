@@ -28,12 +28,14 @@ import butterknife.ButterKnife;
 public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.ViewHolder> {
 
 
+    private static  Context mContext;
     public List<RecommendBean.DataBean> datas;
     private final LayoutInflater inflater;
 
     public RecommendAdapter(Context mContext, List<RecommendBean.DataBean> data) {
         this.datas = data;
         inflater = LayoutInflater.from(mContext);
+        this.mContext =mContext;
     }
 
     @Override
@@ -105,6 +107,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+
         }
     }
 
