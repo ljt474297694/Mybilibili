@@ -5,11 +5,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.mybilibili.R;
-import com.atguigu.mybilibili.adapter.RecommendAdapter;
+import com.atguigu.mybilibili.adapter.BaseViewHodler;
+import com.atguigu.mybilibili.adapter.MyBaseAdapter;
+import com.atguigu.mybilibili.adapter.RecommendViewHolder;
 import com.atguigu.mybilibili.bean.RecommendBean;
 import com.atguigu.mybilibili.utils.AppNetConfig;
 
@@ -29,7 +32,7 @@ public class RecommendFragment extends BaseFragment {
     RecyclerView recyclerview;
     @Bind(R.id.swiperefreshlayout)
     SwipeRefreshLayout swiperefreshlayout;
-    private RecommendAdapter adapter;
+    private MyBaseAdapter adapter;
     private boolean isLoadMore;
 
     @Override
@@ -80,7 +83,12 @@ public class RecommendFragment extends BaseFragment {
 
     private void setAdapter(final List<RecommendBean.DataBean> data) {
         if (!isLoadMore) {
-            adapter = new RecommendAdapter(mContext, data);
+            adapter = new MyBaseAdapter<RecommendBean.DataBean>(mContext, data) {
+                @Override
+                protected BaseViewHodler setViewHolder(ViewGroup parent) {
+                    return new RecommendViewHolder((inflater.inflate(R.layout.item_recommend, parent, false)),data);
+                }
+            };
             recyclerview.setAdapter(adapter);
             GridLayoutManager manager = new GridLayoutManager(mContext, 2, GridLayoutManager.VERTICAL, false);
             manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
