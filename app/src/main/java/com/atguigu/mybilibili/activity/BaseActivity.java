@@ -45,7 +45,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        requestCall.cancel();
+        if(requestCall!=null) {
+            requestCall.cancel();
+        }
         super.onDestroy();
     }
 

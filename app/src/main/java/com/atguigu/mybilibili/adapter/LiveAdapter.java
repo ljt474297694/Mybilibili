@@ -14,10 +14,12 @@ import android.widget.Toast;
 
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.activity.VideoActivity;
+import com.atguigu.mybilibili.activity.WebActivity;
 import com.atguigu.mybilibili.bean.LiveBean;
 import com.atguigu.mybilibili.utils.BitmapUtils;
 import com.atguigu.mybilibili.view.CircleImageView;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
@@ -207,6 +209,16 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
 
             banner.setImages(images);
             banner.start();
+            banner.setOnBannerListener(new OnBannerListener() {
+                @Override
+                public void OnBannerClick(int position) {
+                    String link = datas.getBanner().get(getLayoutPosition()).getLink();
+                    String title = datas.getBanner().get(getLayoutPosition()).getTitle();
+                    mContext.startActivity(new Intent(mContext, WebActivity.class)
+                                            .putExtra("link",link)
+                                            .putExtra("title",title));
+                }
+            });
         }
     }
 

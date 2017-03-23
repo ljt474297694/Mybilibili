@@ -46,6 +46,8 @@ public class MainActivity extends BaseActivity {
     List<Fragment> fragments;
     private HomeAdapter homeAdapter;
 
+    int oldPosition;
+
     @Override
     protected String setUrl() {
         return null;
@@ -60,7 +62,7 @@ public class MainActivity extends BaseActivity {
 
                 if (menuItemId == R.id.menu_download) {
 //                    Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainActivity.this,SearchActivity.class).putExtra("search",""));
+                    startActivity(new Intent(MainActivity.this, SearchActivity.class).putExtra("search", ""));
 
                 } else if (menuItemId == R.id.menu_search) {
                     Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
@@ -73,17 +75,20 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
+
             @Override
             public void onPageSelected(int position) {
-                if (position == 0) {
-                    if(fragments!=null) {
+                if (oldPosition == 1 && position == 0) {
+                    if (fragments != null) {
                         LiveFragment liveFragment = (LiveFragment) fragments.get(0);
-                        if(liveFragment.position<=2) {
+                        if (liveFragment.position <= 2) {
                             liveFragment.refresh();
                         }
                     }
                 }
+                oldPosition = position;
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
             }

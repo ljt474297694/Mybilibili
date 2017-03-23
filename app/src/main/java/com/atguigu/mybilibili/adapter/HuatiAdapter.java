@@ -1,6 +1,7 @@
 package com.atguigu.mybilibili.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atguigu.mybilibili.R;
+import com.atguigu.mybilibili.activity.WebActivity;
 import com.atguigu.mybilibili.bean.DiscoverHuatiBean;
 import com.atguigu.mybilibili.utils.BitmapUtils;
 
@@ -40,9 +42,19 @@ public class HuatiAdapter extends RecyclerView.Adapter<HuatiAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvContent.setText(datas.get(position).getTitle());
         BitmapUtils.glideToImage(datas.get(position).getCover(),holder.ivIcon);
+        holder.ivIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = datas.get(position).getTitle();
+                String link = datas.get(position).getLink();
+                mContext.startActivity(new Intent(mContext, WebActivity.class)
+                        .putExtra("link",link)
+                        .putExtra("title",title));
+            }
+        });
     }
 
     @Override
@@ -60,6 +72,7 @@ public class HuatiAdapter extends RecyclerView.Adapter<HuatiAdapter.ViewHolder> 
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+
         }
     }
 }

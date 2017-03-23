@@ -33,7 +33,8 @@
         <activity
             android:name=".activity.SearchActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.VideoActivity"></activity>
+        <activity android:name=".activity.VideoActivity" />
+        <activity android:name=".activity.WebActivity"></activity>
     </application>
 
 </manifest>

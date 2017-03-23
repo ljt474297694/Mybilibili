@@ -55,7 +55,6 @@ public class VideoActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
