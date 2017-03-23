@@ -3,16 +3,22 @@ package com.atguigu.mybilibili.activity;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.atguigu.mybilibili.R;
+import com.atguigu.mybilibili.bean.VideoBean;
+import com.atguigu.mybilibili.fragment.BaseFragment;
 import com.atguigu.mybilibili.utils.BitmapUtils;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -32,11 +38,15 @@ public class VideoActivity extends BaseActivity {
     CollapsingToolbarLayout collapsingToolbarLayout;
     @Bind(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
-    @Bind(R.id.nestedScrollView)
-    NestedScrollView nestedScrollView;
+    //    @Bind(R.id.viewpager)
+//    ViewPager viewpager;
+//    @Bind(R.id.tabLayout)
+//    TabLayout tabLayout;
     @Bind(R.id.floatingActionButton)
     FloatingActionButton floatingActionButton;
     boolean isOpen = true;
+    List<BaseFragment> fragments;
+
 
     @Override
     protected String setUrl() {
@@ -45,6 +55,7 @@ public class VideoActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
+
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -70,7 +81,7 @@ public class VideoActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_test:
-                        Toast.makeText(VideoActivity.this,"测试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(VideoActivity.this, "测试", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.menu_help:
                         Toast.makeText(VideoActivity.this, "帮助", Toast.LENGTH_SHORT).show();
@@ -89,18 +100,31 @@ public class VideoActivity extends BaseActivity {
         toolbar.inflateMenu(R.menu.menu_toolbar_dian);
         tvPlay.setVisibility(View.GONE);
         BitmapUtils.glideToImage("http://i0.hdslb.com/bfs/archive/7c6c605d69914540c0f2ea1c48645113451228d9.jpg@384w_240h_1e_1c.webp", ivHead);
+
     }
 
     @Override
-    protected void initData(String jaon, String error) {
+    protected void initData(String json, String error) {
+        if (TextUtils.isEmpty(json)) {
+            Log.e("TAG", "SearchActivity initData()" + error);
+        } else {
+            JSONObject jsonObject = JSONObject.parseObject(json);
+            Integer code = jsonObject.getInteger("code");
+            if (code == 0) {
+//                setAdapter(JSON.parseObject(json, VideoBean.class).getData());
+            } else {
+                Log.e("TAG", "SearchActivity initData()联网失败");
+            }
+        }
+    }
 
+    private void setAdapter(VideoBean.DataBean data) {
     }
 
     @Override
     protected int setLayoutId() {
         return R.layout.activity_video;
     }
-
 
 
     @OnClick({R.id.iv_back, R.id.tv_play, R.id.floatingActionButton})

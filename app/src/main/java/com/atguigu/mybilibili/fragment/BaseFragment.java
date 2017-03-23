@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.atguigu.mybilibili.utils.NetUtils;
+import com.zhy.http.okhttp.request.RequestCall;
 
 import butterknife.ButterKnife;
 
@@ -24,7 +25,9 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends Fragment {
 
     protected Context mContext;
-    private boolean isHide;
+    private boolean isShow;
+    private RequestCall requestCall;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(mContext,setLayoutId(),null);
         ButterKnife.bind(this, view);
-        isHide = true;
+        isShow = true;
         return view;
     }
 
@@ -55,20 +58,19 @@ public abstract class BaseFragment extends Fragment {
     }
 
     private void initNetData() {
-        if(isHide)  showLoad();
+        if(isShow)  showLoad();
         if(!TextUtils.isEmpty(setUrl())) {
-            NetUtils.getInstance().okhttpUtilsget(setUrl(), new NetUtils.resultJson() {
+            requestCall = NetUtils.getInstance().okhttpUtilsget(setUrl(), new NetUtils.resultJson() {
                 @Override
                 public void onResponse(String json) {
-                    if(isHide) {
-                        initData(json,null);
+                    if (isShow) {
+                        initData(json, null);
                     }
                 }
-
                 @Override
                 public void onError(String error) {
-                    if(isHide) {
-                        initData(null,error);
+                    if (isShow) {
+                        initData(null, error);
                     }
                 }
             });
@@ -79,6 +81,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected void showLoad() {
     }
+
 
     protected abstract String setUrl();
 
@@ -91,7 +94,10 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if(requestCall!=null) {
+            requestCall.cancel();
+        }
         ButterKnife.unbind(this);
-        isHide = false;
+        isShow = false;
     }
 }

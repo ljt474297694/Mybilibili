@@ -64,7 +64,7 @@ public class RecommendFragment extends BaseFragment {
 
     @Override
     protected void initData(String json, String error) {
-        if(swiperefreshlayout!=null) {
+        if (swiperefreshlayout != null) {
             swiperefreshlayout.setRefreshing(false);
         }
         if (TextUtils.isEmpty(json)) {
@@ -85,7 +85,7 @@ public class RecommendFragment extends BaseFragment {
             adapter = new MyBaseAdapter<RecommendBean.DataBean>(mContext, data) {
                 @Override
                 protected RecommendViewHolder setViewHolder(ViewGroup parent) {
-                    return new RecommendViewHolder((inflater.inflate(R.layout.item_recommend, parent, false)),data,mContext);
+                    return  new RecommendViewHolder((inflater.inflate(R.layout.item_recommend, parent, false)), data, mContext);
                 }
             };
             recyclerview.setAdapter(adapter);
@@ -96,7 +96,7 @@ public class RecommendFragment extends BaseFragment {
                     //当显示最后一条数据的时候会回调多次 所以刷新过一次后才进行下次刷新
                     //刷新后isLoadMore才会=false
                     if (position >= data.size() - 1) {
-                        if(!isLoadMore) {
+                        if (!isLoadMore) {
                             isLoadMore = true;
                             refresh();
                         }

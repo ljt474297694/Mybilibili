@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+import com.zhy.http.okhttp.request.RequestCall;
 
 import okhttp3.Call;
 
@@ -30,15 +31,17 @@ public class NetUtils {
      * @param url    url
      * @param result resultBean 回调bean的接口
      */
-    public void okhttpUtilsget( String url,final resultJson result) {
+    public RequestCall okhttpUtilsget( String url,final resultJson result) {
         if (result == null) {
-            return;
+            return null;
         }
         if (TextUtils.isEmpty(url)) {
             result.onError("url为空无法请求");
-            return;
+            return null;
         }
-        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+        RequestCall build = OkHttpUtils.get().url(url).build();
+
+        build.execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 result.onError(e.getMessage());
@@ -52,6 +55,7 @@ public class NetUtils {
                 result.onResponse(response);
             }
         });
+        return build;
     }
 
 

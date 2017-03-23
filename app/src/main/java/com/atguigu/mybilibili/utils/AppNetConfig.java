@@ -25,6 +25,9 @@ public class AppNetConfig {
     public static final String RECOMMEND ="http://app.bilibili.com/x/feed/index?appkey=1d8b6e7d45233436&build=501000&idx=1490013261&mobi_app=android&network=wifi&platform=android&pull=true&style=2&ts=1490015599000&sign=af4edc66aef7e443c98c28de2b660aa4";
     //分区首页
     public static final String PARTITION ="http://app.bilibili.com/x/v2/show/region?appkey=1d8b6e7d45233436&build=501000&mobi_app=android&platform=android&ts=1490014674000&sign=93edb7634f38498a60e5c3ad0b8b0974";
+    //追番
     public static final String CARTOON ="http://bangumi.bilibili.com/api/app_index_page_v4?build=3940&device=phone&mobi_app=iphone&platform=ios";
+    //video 评论
+    public static final String VIDEO ="http://api.bilibili.com/x/v2/reply?_device=android&appkey=1d8b6e7d45233436&build=501000&mobi_app=android&oid=9270287&plat=2&platform=android&pn=1&ps=20&sort=0&type=1&sign=d4a5c3858fb6e820661f4083f9d12614";
 
 }

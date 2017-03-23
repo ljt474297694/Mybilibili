@@ -18,6 +18,7 @@ import com.atguigu.mybilibili.utils.BitmapUtils;
 import com.atguigu.mybilibili.view.MyGridView;
 
 import java.util.List;
+import java.util.Collections;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -101,20 +102,29 @@ public class PartitionAdapter extends RecyclerView.Adapter<BaseViewHodler> {
         @Override
         public void setData() {
             PartitionBean.DataBean dataBean = data.get(getLayoutPosition());
+            final ItemGridViewHolder holder;
             if (!TextUtils.isEmpty(dataBean.getTitle())) {
                 ivIcon.setBackgroundResource(getIds(dataBean.getTitle()));
                 tvName.setText(dataBean.getTitle());
-                gridview.setAdapter(new ItemGridViewHolder(dataBean));
+                holder = new ItemGridViewHolder(dataBean);
+                gridview.setAdapter(holder);
             } else {
-                while(TextUtils.isEmpty(dataBean.getTitle())) {
-                    dataBean = data.get((int) Math.random()*10);
+                while (TextUtils.isEmpty(dataBean.getTitle())) {
+                    dataBean = data.get((int) Math.random() * 10);
                 }
                 ivIcon.setBackgroundResource(getIds(dataBean.getTitle()));
                 tvName.setText(dataBean.getTitle());
-
-                gridview.setAdapter(new ItemGridViewHolder(dataBean));
+                holder = new ItemGridViewHolder(dataBean);
+                gridview.setAdapter(holder);
 
             }
+            tvRefresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.refresh();
+
+                }
+            });
         }
 
         private int getIds(String title) {
@@ -175,7 +185,7 @@ public class PartitionAdapter extends RecyclerView.Adapter<BaseViewHodler> {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-          ViewHolder viewHolder;
+            ViewHolder viewHolder;
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.item_partition_default_grid, null);
                 viewHolder = new ViewHolder(convertView);
@@ -183,27 +193,31 @@ public class PartitionAdapter extends RecyclerView.Adapter<BaseViewHodler> {
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            if(!TextUtils.isEmpty(datas.getTitle())) {
-                if(position>datas.getBody().size()-1) {
-                    position=datas.getBody().size()-1;
+            if (!TextUtils.isEmpty(datas.getTitle())) {
+                if (position > datas.getBody().size() - 1) {
+                    position = datas.getBody().size() - 1;
                 }
-                BitmapUtils.glideToImage(datas.getBody().get(position).getCover(),viewHolder.ivIcon);
+                BitmapUtils.glideToImage(datas.getBody().get(position).getCover(), viewHolder.ivIcon);
                 viewHolder.tvTitle.setText(datas.getBody().get(position).getTitle());
-                viewHolder.tvDanmu.setText(datas.getBody().get(position).getDanmaku()+"");
+                viewHolder.tvDanmu.setText(datas.getBody().get(position).getDanmaku() + "");
                 int play = datas.getBody().get(position).getPlay();
                 if (play > 9999) {
-                    float playf = ((float) play - (float)play % 1000) / 10000;
-                    viewHolder.tvPlay.setText(playf+"万");
+                    float playf = ((float) play - (float) play % 1000) / 10000;
+                    viewHolder.tvPlay.setText(playf + "万");
                 } else {
-                    viewHolder.tvPlay.setText(play+"");
+                    viewHolder.tvPlay.setText(play + "");
                 }
             }
             return convertView;
         }
 
+        public void refresh() {
+            Collections.shuffle(datas.getBody());
+            notifyDataSetChanged();
+        }
 
 
-        static   class ViewHolder {
+        static class ViewHolder {
             @Bind(R.id.iv_icon)
             ImageView ivIcon;
             @Bind(R.id.tv_title)

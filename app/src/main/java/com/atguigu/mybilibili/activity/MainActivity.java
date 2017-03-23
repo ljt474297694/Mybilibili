@@ -1,5 +1,6 @@
 package com.atguigu.mybilibili.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -58,7 +59,8 @@ public class MainActivity extends BaseActivity {
                 int menuItemId = item.getItemId();
 
                 if (menuItemId == R.id.menu_download) {
-                    Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this,SearchActivity.class).putExtra("search",""));
 
                 } else if (menuItemId == R.id.menu_search) {
                     Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();

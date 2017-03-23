@@ -1,5 +1,6 @@
 package com.atguigu.mybilibili.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -47,8 +48,8 @@ public class OriginalActivity extends BaseActivity {
                 int menuItemId = item.getItemId();
 
                 if (menuItemId == R.id.menu_download) {
-                    Toast.makeText(OriginalActivity.this, "搜索", Toast.LENGTH_SHORT).show();
-
+//                    Toast.makeText(OriginalActivity.this, "搜索", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(OriginalActivity.this,SearchActivity.class).putExtra("search",""));
                 } else if (menuItemId == R.id.menu_search) {
                     Toast.makeText(OriginalActivity.this, "下载", Toast.LENGTH_SHORT).show();
 
