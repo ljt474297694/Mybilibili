@@ -15,16 +15,24 @@ import java.util.List;
  */
 
 public abstract class MyBaseAdapter<T> extends RecyclerView.Adapter<BaseViewHodler>{
+    protected final Context mContext;
     public List<T> datas;
     protected  LayoutInflater inflater;
 
     public MyBaseAdapter(Context mContext, List<T> data) {
         this.datas = data;
+        this.mContext =mContext;
         inflater = LayoutInflater.from(mContext);
     }
     @Override
     public int getItemCount() {
+        if(setItemCount()!=0) {
+            return setItemCount();
+        }
         return datas.size();
+    }
+    protected int setItemCount(){
+        return 0;
     }
     @Override
     public void onBindViewHolder(BaseViewHodler holder, int position) {

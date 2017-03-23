@@ -1,11 +1,15 @@
 package com.atguigu.mybilibili.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.atguigu.mybilibili.R;
+import com.atguigu.mybilibili.activity.VideoActivity;
 import com.atguigu.mybilibili.bean.RecommendBean;
 import com.atguigu.mybilibili.utils.BitmapUtils;
 
@@ -22,6 +26,7 @@ import butterknife.ButterKnife;
  */
 
 public class RecommendViewHolder extends BaseViewHodler {
+    private final Context mContext;
 
 //    @Override
 //    protected BaseViewHodler setViewHolder(ViewGroup parent) {
@@ -44,10 +49,11 @@ public class RecommendViewHolder extends BaseViewHodler {
     @Bind(R.id.item_live_layout)
     CardView itemLiveLayout;
 
-    public  RecommendViewHolder(View view, List<RecommendBean.DataBean> datas) {
+    public  RecommendViewHolder(View view,  List<RecommendBean.DataBean> datas,  Context mContext) {
         super(view);
         this.datas = datas;
         ButterKnife.bind(this, view);
+        this.mContext =mContext;
 
     }
 
@@ -76,6 +82,13 @@ public class RecommendViewHolder extends BaseViewHodler {
         int duration = dataBean.getDuration() * 1000;
         String hms = getTimeString(duration);
         tvTime.setText(hms);
+        itemLiveLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, datas.get(getLayoutPosition()).getTitle(), Toast.LENGTH_SHORT).show();
+                mContext.startActivity(new Intent(mContext,VideoActivity.class));
+            }
+        });
     }
 
     private String getTimeString(int duration) {

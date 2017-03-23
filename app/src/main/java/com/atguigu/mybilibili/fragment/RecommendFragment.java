@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.mybilibili.R;
-import com.atguigu.mybilibili.adapter.BaseViewHodler;
 import com.atguigu.mybilibili.adapter.MyBaseAdapter;
 import com.atguigu.mybilibili.adapter.RecommendViewHolder;
 import com.atguigu.mybilibili.bean.RecommendBean;
@@ -85,8 +84,8 @@ public class RecommendFragment extends BaseFragment {
         if (!isLoadMore) {
             adapter = new MyBaseAdapter<RecommendBean.DataBean>(mContext, data) {
                 @Override
-                protected BaseViewHodler setViewHolder(ViewGroup parent) {
-                    return new RecommendViewHolder((inflater.inflate(R.layout.item_recommend, parent, false)),data);
+                protected RecommendViewHolder setViewHolder(ViewGroup parent) {
+                    return new RecommendViewHolder((inflater.inflate(R.layout.item_recommend, parent, false)),data,mContext);
                 }
             };
             recyclerview.setAdapter(adapter);

@@ -67,6 +67,25 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
         });
+        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    if(fragments!=null) {
+                        LiveFragment liveFragment = (LiveFragment) fragments.get(0);
+                        if(liveFragment.position<=2) {
+                            liveFragment.refresh();
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 
     @Override
@@ -93,7 +112,7 @@ public class MainActivity extends BaseActivity {
         navigationview.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-              drawerlayout.closeDrawers();
+                drawerlayout.closeDrawers();
                 return true;
             }
         });
@@ -111,6 +130,7 @@ public class MainActivity extends BaseActivity {
     private boolean isScrollY;
     private boolean isFirst;
     private boolean isOpen = true;
+
     //tollBar 回弹效果
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -124,11 +144,11 @@ public class MainActivity extends BaseActivity {
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (isFirst) {
-                    if (Math.abs(eventX - startX) > Math.abs(eventY - startY) && Math.abs(eventX - startX) > toolBar.getHeight()*0.30) {
+                    if (Math.abs(eventX - startX) > Math.abs(eventY - startY) && Math.abs(eventX - startX) > toolBar.getHeight() * 0.30) {
                         isScrollY = false;
                         isFirst = false;
                         appbar.setExpanded(isOpen);
-                    } else if (Math.abs(eventY - startY) > Math.abs(eventX - startX) && Math.abs(eventY - startY) > toolBar.getHeight()*0.30) {
+                    } else if (Math.abs(eventY - startY) > Math.abs(eventX - startX) && Math.abs(eventY - startY) > toolBar.getHeight() * 0.30) {
                         isScrollY = true;
                         isFirst = false;
                     }

@@ -2,12 +2,11 @@ package com.atguigu.mybilibili.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +30,7 @@ import butterknife.ButterKnife;
  */
 
 public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
-    private static final int DEFAULT = 1;
+    private static final int DEFAULT = 2;
     private static LiveBean.DataBean datas;
     private static Context mContext;
     private static final int BANNER = 0;
@@ -48,6 +47,8 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
     public int getItemViewType(int position) {
         if (position == BANNER) {
             return BANNER;
+        } else if (position == 1) {
+            return 1;
         } else {
             return DEFAULT;
         }
@@ -58,6 +59,9 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
         switch (viewType) {
             case BANNER:
                 return new BannerViewHodler(inflater.inflate(R.layout.item_live_banner, parent, false));
+
+            case 1:
+                return new BannerBottomViewHodler(inflater.inflate(R.layout.item_live_banner_bottom, parent, false));
             case DEFAULT:
                 return new DefaultViewHolder(inflater.inflate(R.layout.item_live_default, parent, false));
         }
@@ -79,8 +83,8 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
         ImageView ivIcon;
         @Bind(R.id.tv_number)
         TextView tvNumber;
-        @Bind(R.id.gridview)
-        GridView gridview;
+        @Bind(R.id.recyclerview)
+        RecyclerView recyclerView;
         @Bind(R.id.tv_more)
         TextView tvMore;
         @Bind(R.id.tv_refresh)
@@ -91,69 +95,32 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
         public DefaultViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-
         }
 
         @Override
         public void setData() {
-            LiveBean.DataBean.PartitionsBean partitionsBean = datas.getPartitions().get(getLayoutPosition() - 1);
+            LiveBean.DataBean.PartitionsBean partitionsBean = datas.getPartitions().get(getLayoutPosition() - 2);
 
             String src = partitionsBean.getPartition().getSub_icon().getSrc();
 
             BitmapUtils.glideToImage(src, ivIcon);
             tvNumber.setText(partitionsBean.getPartition().getCount() + "");
-            gridview.setAdapter(new GridViewHolder(partitionsBean.getLives()));
+            recyclerView.setAdapter(new MyBaseAdapter<LiveBean.DataBean.PartitionsBean.LivesBean>(mContext,partitionsBean.getLives()) {
+                @Override
+                protected BaseViewHodler setViewHolder(ViewGroup parent) {
+                    return new ViewHolder(inflater.inflate(R.layout.item_live_grid,parent,false),datas);
+                }
+                @Override
+                protected int setItemCount() {
+                    return 4;
+                }
+            });
+            recyclerView.setLayoutManager(new GridLayoutManager(mContext,2,GridLayoutManager.VERTICAL,false));
             tvName.setText(partitionsBean.getPartition().getName());
         }
     }
-
-    static class GridViewHolder extends BaseAdapter {
-
-        private List<LiveBean.DataBean.PartitionsBean.LivesBean> datas;
-
-        public GridViewHolder(List<LiveBean.DataBean.PartitionsBean.LivesBean> lives) {
-            this.datas = lives;
-        }
-
-        @Override
-        public int getCount() {
-            return 4;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder viewHolder;
-            if (convertView == null) {
-                convertView = View.inflate(mContext, R.layout.item_live_grid, null);
-                viewHolder = new ViewHolder(convertView);
-                convertView.setTag(viewHolder);
-            } else {
-                viewHolder = (ViewHolder) convertView.getTag();
-            }
-            LiveBean.DataBean.PartitionsBean.LivesBean livesBean = datas.get(position);
-            String src = livesBean.getCover().getSrc();
-            String face = livesBean.getOwner().getFace();
-            BitmapUtils.glideToImage(src,viewHolder.itemLiveCover);
-            BitmapUtils.glideToImage(face,viewHolder.itemLiveUserCover);
-            viewHolder.itemLiveTitle.setText(livesBean.getTitle());
-            viewHolder.itemLiveCount.setText(livesBean.getOnline()+"");
-            viewHolder.itemLiveUser.setText(livesBean.getOwner().getName());
-            return convertView;
-        }
-
-
-
-        static  class ViewHolder {
+        static class ViewHolder extends BaseViewHodler{
+            private  List<LiveBean.DataBean.PartitionsBean.LivesBean> datas;
             @Bind(R.id.item_live_cover)
             ImageView itemLiveCover;
             @Bind(R.id.item_live_user_cover)
@@ -167,11 +134,24 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
             @Bind(R.id.item_live_layout)
             CardView itemLiveLayout;
 
-            ViewHolder(View view) {
+            ViewHolder(View view, List<LiveBean.DataBean.PartitionsBean.LivesBean> datas) {
+                super(view);
                 ButterKnife.bind(this, view);
+                this.datas = datas;
+            }
+            @Override
+            public void setData() {
+                LiveBean.DataBean.PartitionsBean.LivesBean livesBean = datas.get(getLayoutPosition());
+                String src = livesBean.getCover().getSrc();
+                String face = livesBean.getOwner().getFace();
+                BitmapUtils.glideToImage(src, itemLiveCover);
+                BitmapUtils.glideToImage(face, itemLiveUserCover);
+                itemLiveTitle.setText(livesBean.getTitle());
+               itemLiveCount.setText(livesBean.getOnline() + "");
+                itemLiveUser.setText(livesBean.getOwner().getName());
             }
         }
-    }
+
 
     static class BannerViewHodler extends BaseViewHodler {
         @Bind(R.id.banner)
@@ -197,12 +177,19 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
                 images.add(datas.getBanner().get(i).getImg());
             }
 
-            if(datas.getBanner().size()==1){
-                images.add(datas.getBanner().get(0).getImg());
-            }
             banner.setImages(images);
             banner.start();
         }
     }
 
+    static class BannerBottomViewHodler extends BaseViewHodler {
+        public BannerBottomViewHodler(View view) {
+            super(view);
+        }
+
+        @Override
+        public void setData() {
+
+        }
+    }
 }

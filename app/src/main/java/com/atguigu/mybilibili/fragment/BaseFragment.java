@@ -50,7 +50,7 @@ public abstract class BaseFragment extends Fragment {
         initNetData();
         initListener();
     }
-    protected void refresh(){
+    public void refresh(){
         initNetData();
     }
 

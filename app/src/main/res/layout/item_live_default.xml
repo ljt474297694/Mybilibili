@@ -58,11 +58,10 @@
             android:background="@drawable/ic_bangumi_index_drawer_close" />
     </LinearLayout>
 
-    <com.atguigu.mybilibili.view.MyGridView
-        android:id="@+id/gridview"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="2"></com.atguigu.mybilibili.view.MyGridView>
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,9 +72,9 @@
             android:id="@+id/tv_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:layout_marginLeft="10dp"
             android:padding="10dp"
             android:text="查看更多"
             android:textColor="@color/black_80"
