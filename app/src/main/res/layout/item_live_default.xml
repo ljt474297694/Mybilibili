@@ -5,7 +5,7 @@
     android:layout_margin="10dp"
     android:gravity="center"
     android:id="@+id/ll_default"
-    android:descendantFocusability="blocksDescendants"
+
     android:orientation="vertical">
 
     <LinearLayout

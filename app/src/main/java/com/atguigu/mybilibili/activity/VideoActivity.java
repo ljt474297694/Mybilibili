@@ -40,10 +40,6 @@ public class VideoActivity extends BaseActivity {
     CollapsingToolbarLayout collapsingToolbarLayout;
     @Bind(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
-    //    @Bind(R.id.viewpager)
-//    ViewPager viewpager;
-//    @Bind(R.id.tabLayout)
-//    TabLayout tabLayout;
     @Bind(R.id.floatingActionButton)
     FloatingActionButton floatingActionButton;
     boolean isOpen = true;

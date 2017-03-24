@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity {
         fragments = new ArrayList<>();
         fragments.add(new LiveFragment());
         fragments.add(new RecommendFragment());
-        fragments.add(new CartoonFragment());
+        fragments.add (new CartoonFragment());
         fragments.add(new PartitionFragment());
         fragments.add(new DiscoverFragment());
 

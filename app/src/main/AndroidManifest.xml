@@ -36,6 +36,7 @@
         <activity android:name=".activity.VideoActivity" />
         <activity android:name=".activity.WebActivity" />
         <activity android:name=".activity.DownloadActivity"></activity>
+
     </application>
 
 </manifest>

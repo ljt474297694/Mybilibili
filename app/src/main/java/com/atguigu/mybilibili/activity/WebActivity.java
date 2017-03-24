@@ -1,8 +1,10 @@
 package com.atguigu.mybilibili.activity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -12,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atguigu.mybilibili.R;
+import com.atguigu.mybilibili.utils.ClipboardUtil;
 
 import butterknife.Bind;
 
@@ -26,6 +29,7 @@ public class WebActivity extends BaseActivity {
     @Bind(R.id.webview)
     WebView webview;
     private String url;
+    private String title;
 
     @Override
     protected String setUrl() {
@@ -40,11 +44,28 @@ public class WebActivity extends BaseActivity {
                 finish();
             }
         });
+
+
+        toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_share:
+                        share();
+                        break;
+                    case R.id.menu_copy:
+                        ClipboardUtil.setText(WebActivity.this,url);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
     protected void initView() {
-        String title = getIntent().getStringExtra("title");
+        toolBar.inflateMenu(R.menu.menu_web);
+        title = getIntent().getStringExtra("title");
         url = getIntent().getStringExtra("link");
         if (!TextUtils.isEmpty(title)) {
             tvTitle.setText(title);
@@ -89,5 +110,13 @@ public class WebActivity extends BaseActivity {
     @Override
     protected int setLayoutId() {
         return R.layout.activity_web;
+    }
+    //分享
+    private void share() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "分享");
+        intent.putExtra(Intent.EXTRA_TEXT, "来自「哔哩哔哩」的分享:" + url);
+        startActivity(Intent.createChooser(intent, title));
     }
 }
