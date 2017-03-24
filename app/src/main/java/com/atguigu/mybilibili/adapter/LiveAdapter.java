@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.atguigu.mybilibili.R;
+import com.atguigu.mybilibili.activity.SearchActivity;
 import com.atguigu.mybilibili.activity.VideoActivity;
 import com.atguigu.mybilibili.activity.WebActivity;
 import com.atguigu.mybilibili.bean.LiveBean;
@@ -66,7 +67,6 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
         switch (viewType) {
             case BANNER:
                 return new BannerViewHodler(inflater.inflate(R.layout.item_live_banner, parent, false));
-
             case 1:
                 return new BannerBottomViewHodler(inflater.inflate(R.layout.item_live_banner_bottom, parent, false));
             case DEFAULT:
@@ -85,6 +85,7 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
         return 1 + datas.getPartitions().size();
     }
 
+
     static class DefaultViewHolder extends BaseViewHodler {
         @Bind(R.id.iv_icon)
         ImageView ivIcon;
@@ -98,8 +99,6 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
         TextView tvRefresh;
         @Bind(R.id.tv_name)
         TextView tvName;
-        @Bind(R.id.ll_default)
-        LinearLayout llDefault;
         ViewHolder viewHolder;
 
         public DefaultViewHolder(View itemView) {
@@ -139,6 +138,7 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
             tvName.setText(partitionsBean.getPartition().getName());
         }
     }
+
 
     static class ViewHolder extends BaseViewHodler {
         private List<LiveBean.DataBean.PartitionsBean.LivesBean> datas;
@@ -230,13 +230,33 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
     }
 
     static class BannerBottomViewHodler extends BaseViewHodler {
+        @Bind(R.id.attention)
+        LinearLayout attention;
+        @Bind(R.id.imageView)
+        ImageView imageView;
+        @Bind(R.id.centre)
+        LinearLayout centre;
+        @Bind(R.id.smallvideo)
+        LinearLayout smallvideo;
+        @Bind(R.id.seek)
+        LinearLayout seek;
+        @Bind(R.id.classify)
+        LinearLayout classify;
+
         public BannerBottomViewHodler(View view) {
             super(view);
+            ButterKnife.bind(this, view);
         }
 
         @Override
         public void setData() {
-
+            seek.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContext.startActivity(new Intent(mContext, SearchActivity.class).putExtra("search", ""));
+                }
+            });
         }
     }
+
 }

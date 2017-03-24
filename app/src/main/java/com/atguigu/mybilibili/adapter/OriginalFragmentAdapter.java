@@ -51,19 +51,19 @@ public class OriginalFragmentAdapter extends RecyclerView.Adapter<OriginalFragme
 
         switch (position) {
             case  0:
-                holder.tvNumber.setTextSize(BitmapUtils.dip2px(22));
+                holder.tvNumber.setTextSize(BitmapUtils.dp2sp(16));
                 holder.tvNumber.setTextColor(Color.parseColor("#fb7299"));
                 break;
             case  1:
-                holder.tvNumber.setTextSize(BitmapUtils.dip2px(20));
+                holder.tvNumber.setTextSize(BitmapUtils.dp2sp(14));
                 holder.tvNumber.setTextColor(Color.parseColor("#ddfb7299"));
                 break;
             case  2:
-                holder.tvNumber.setTextSize(BitmapUtils.dip2px(18));
+                holder.tvNumber.setTextSize(BitmapUtils.dp2sp(12));
                 holder.tvNumber.setTextColor(Color.parseColor("#bbfb7299"));
                 break;
             default:
-                holder.tvNumber.setTextSize(BitmapUtils.dip2px(16));
+                holder.tvNumber.setTextSize(BitmapUtils.dp2sp(10));
                 holder.tvNumber.setTextColor(Color.GRAY);
                 break;
         }

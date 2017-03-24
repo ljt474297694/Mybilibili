@@ -1,5 +1,7 @@
 package com.atguigu.mybilibili.activity;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -47,32 +49,39 @@ public class VideoActivity extends BaseActivity {
     boolean isOpen = true;
     List<BaseFragment> fragments;
 
-
+    private Handler handler = new Handler(){
+        public void handleMessage(Message msg){
+            if(isOpen != floatingActionButton.isShown()) {
+                isOpen = floatingActionButton.isShown();
+                if (floatingActionButton.isShown()) {
+                    tvAvid.setVisibility(View.VISIBLE);
+                    tvPlay.setVisibility(View.GONE);
+                } else {
+                    tvAvid.setVisibility(View.GONE);
+                    tvPlay.setVisibility(View.VISIBLE);
+                }
+            }
+            sendEmptyMessageDelayed(0,500);
+        }
+    };
     @Override
     protected String setUrl() {
         return null;
     }
 
+
     @Override
     protected void initListener() {
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+        floatingActionButton.show(new FloatingActionButton.OnVisibilityChangedListener() {
             @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (Math.abs(verticalOffset) > (collapsingToolbarLayout.getHeight() - toolbar.getHeight()) * 0.75) {
-                    if (isOpen) {
-                        floatingActionButton.hide();
-                        isOpen = false;
-                        tvAvid.setVisibility(View.GONE);
-                        tvPlay.setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    if (!isOpen) {
-                        floatingActionButton.show();
-                        tvAvid.setVisibility(View.VISIBLE);
-                        tvPlay.setVisibility(View.GONE);
-                        isOpen = true;
-                    }
-                }
+            public void onHidden(FloatingActionButton fab) {
+                super.onHidden(fab);
+            }
+
+            @Override
+            public void onShown(FloatingActionButton fab) {
+                super.onShown(fab);
+
             }
         });
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -143,5 +152,17 @@ public class VideoActivity extends BaseActivity {
                 Toast.makeText(VideoActivity.this, "播放", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    @Override
+    protected void onStop() {
+        handler.removeCallbacksAndMessages(null);
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        handler.sendEmptyMessage(0);
+        super.onResume();
     }
 }

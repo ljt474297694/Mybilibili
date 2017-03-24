@@ -1,11 +1,13 @@
 package com.atguigu.mybilibili.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.util.TypedValue;
 import android.widget.ImageView;
 
 import com.atguigu.mybilibili.app.MyApplication;
@@ -61,22 +63,33 @@ public class BitmapUtils {
         return bitmap;
     }
 
-    public static void glideToImage(String url,ImageView imageView) {
+    public static void glideToImage(String url, ImageView imageView) {
         Glide.with(MyApplication.getInstance()).load(url).into(imageView);
     }
+
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
-    public static int dip2px( float dpValue) {
-        final float scale = MyApplication.getInstance().getResources().getDisplayMetrics().density;
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
     /**
      * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
      */
-    public static int px2dip(float pxValue) {
-        final float scale = MyApplication.getInstance().getResources().getDisplayMetrics().density;
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+    public static int dp2sp(float dpVal) {
+        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal,
+                MyApplication.getInstance().getApplicationContext().getResources().getDisplayMetrics()));
+    }
+
+    public static int sp2dp(float spVal) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spVal,
+                MyApplication.getInstance().getApplicationContext().getResources().getDisplayMetrics());
     }
 }
