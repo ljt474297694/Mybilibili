@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.atguigu.mybilibili.R;
@@ -14,6 +13,7 @@ import com.atguigu.mybilibili.activity.DownloadActivity;
 import com.atguigu.mybilibili.app.MyApplication;
 import com.atguigu.mybilibili.utils.ProgressResponseBody;
 import com.atguigu.mybilibili.utils.RetrofitUtils;
+import com.atguigu.mybilibili.view.MyProgressBar;
 
 import java.io.File;
 
@@ -28,9 +28,9 @@ import butterknife.ButterKnife;
 
 public class DownloadAdapter extends RecyclerView.Adapter {
     private static DownloadActivity mContext;
-
     public DownloadAdapter(DownloadActivity mContext) {
         this.mContext = mContext;
+
     }
 
     @Override
@@ -52,8 +52,8 @@ public class DownloadAdapter extends RecyclerView.Adapter {
     static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.bt_download)
         Button btDownload;
-        @Bind(R.id.progressbar)
-        ProgressBar progressbar;
+        @Bind(R.id.progresss)
+        MyProgressBar progresss;
         @Bind(R.id.tv_progress)
         TextView tvProgress;
 
@@ -63,21 +63,17 @@ public class DownloadAdapter extends RecyclerView.Adapter {
             btDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    Log.e("TAG", "ViewHolder onClick()" + Thread.currentThread().getName());
+                    btDownload.setText("下载中!");
+                    btDownload.setEnabled(false);
                     RetrofitUtils.getInstance().download(new File(MyApplication.getInstance().getExternalFilesDir(null), getLayoutPosition() + "x.apk"),
                             new ProgressResponseBody.ProgressListener() {
                                 @Override
-                                public void onProgress(final long progress, final long total, boolean done) {
+                                public void onProgress(final long progress, final long total, final boolean done) {
                                     mContext.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            if (progressbar.getMax() != total) {
-                                                progressbar.setMax((int) total);
-                                                btDownload.setText("下载中!");
-                                                btDownload.setEnabled(false);
-                                            }
-                                            progressbar.setProgress((int) progress);
+                                            long l = progress*100 / total;
+                                            progresss.setProgress((int) l);
                                             String pro = (int) progress * 100 / (int) total + "%";
                                             String p = RetrofitUtils.formetFileSize(progress);
                                             String t = RetrofitUtils.formetFileSize(total);
@@ -86,7 +82,6 @@ public class DownloadAdapter extends RecyclerView.Adapter {
                                     });
 
                                 }
-
                                 @Override
                                 public void onResponse() {
                                     btDownload.setText("下载完成!");

@@ -59,7 +59,6 @@ public class NetUtils {
     }
 
 
-
     public interface resultJson {
         void onResponse(String bean);
 

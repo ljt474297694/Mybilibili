@@ -22,7 +22,7 @@ import retrofit2.http.GET;
 /**
  * Created by 李金桐 on 2017/3/24.
  * QQ: 474297694
- * 功能: xxxx
+ * 功能: RetrofitUtils
  */
 
 public class RetrofitUtils {
@@ -68,7 +68,6 @@ public class RetrofitUtils {
         //使用OkHttpClient设置到Retrofit中 并创建任务
         DownLoadApk api = retrofit.client(client)
                 .build().create(DownLoadApk.class);
-
 
         //开启任务 开始请求
         Call<ResponseBody> call = api.downLoadApk();
