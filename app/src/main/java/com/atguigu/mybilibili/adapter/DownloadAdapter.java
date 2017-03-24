@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * 功能: xxxx
  */
 
-public class DownloadAdapter extends RecyclerView.Adapter {
+public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHolder> {
     private static DownloadActivity mContext;
     public DownloadAdapter(DownloadActivity mContext) {
         this.mContext = mContext;
@@ -34,13 +34,13 @@ public class DownloadAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_download, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.progresss.setProgress(0);
     }
 
     @Override

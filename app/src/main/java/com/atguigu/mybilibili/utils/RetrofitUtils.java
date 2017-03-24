@@ -91,6 +91,7 @@ public class RetrofitUtils {
 //                    Intent intent = new Intent("android.intent.action.INSTALL_PACKAGE");
 //                    intent.setData(Uri.parse("file:" + file.getAbsolutePath()));
 //                    startActivity(intent);
+
 //                    Intent intent = new Intent();
 //                    intent.setAction(android.content.Intent.ACTION_VIEW);
 //                    intent.setDataAndType(Uri.fromFile(file),

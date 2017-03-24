@@ -45,9 +45,9 @@ public class VideoActivity extends BaseActivity {
     boolean isOpen = true;
     List<BaseFragment> fragments;
 
-    private Handler handler = new Handler(){
-        public void handleMessage(Message msg){
-            if(isOpen != floatingActionButton.isShown()) {
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            if (isOpen != floatingActionButton.isShown()) {
                 isOpen = floatingActionButton.isShown();
                 if (floatingActionButton.isShown()) {
                     tvAvid.setVisibility(View.VISIBLE);
@@ -57,9 +57,10 @@ public class VideoActivity extends BaseActivity {
                     tvPlay.setVisibility(View.VISIBLE);
                 }
             }
-            sendEmptyMessageDelayed(0,500);
+            sendEmptyMessageDelayed(0, 500);
         }
     };
+
     @Override
     protected String setUrl() {
         return null;
@@ -95,6 +96,13 @@ public class VideoActivity extends BaseActivity {
                         break;
                 }
                 return true;
+            }
+        });
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (!floatingActionButton.isShown() && verticalOffset == 0) {
+                }
             }
         });
     }
@@ -145,7 +153,10 @@ public class VideoActivity extends BaseActivity {
                 isOpen = true;
                 break;
             case R.id.floatingActionButton:
-                Toast.makeText(VideoActivity.this, "播放", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(VideoActivity.this, "播放", Toast.LENGTH_SHORT).show();
+                appBarLayout.setExpanded(true);
+//                appBarLayout.setVisibility(View.INVISIBLE);
+                floatingActionButton.setVisibility(View.GONE);
                 break;
         }
     }

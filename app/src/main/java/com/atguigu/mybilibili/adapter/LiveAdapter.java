@@ -11,11 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.atguigu.mybilibili.R;
+import com.atguigu.mybilibili.activity.LiveActivity;
 import com.atguigu.mybilibili.activity.SearchActivity;
-import com.atguigu.mybilibili.activity.VideoActivity;
 import com.atguigu.mybilibili.activity.WebActivity;
 import com.atguigu.mybilibili.bean.LiveBean;
 import com.atguigu.mybilibili.utils.BitmapUtils;
@@ -174,8 +173,7 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
             itemLiveLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext, livesBean.getTitle() + "", Toast.LENGTH_SHORT).show();
-                    mContext.startActivity(new Intent(mContext, VideoActivity.class));
+                    mContext.startActivity(new Intent(mContext, LiveActivity.class).putExtra("url",livesBean.getPlayurl()));
                 }
             });
         }

@@ -95,6 +95,7 @@ public class MainActivity extends BaseActivity {
         navigationview.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.getItemId();
                 drawerlayout.closeDrawers();
                 return true;
             }

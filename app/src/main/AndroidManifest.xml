@@ -35,8 +35,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.VideoActivity" />
         <activity android:name=".activity.WebActivity" />
-        <activity android:name=".activity.DownloadActivity"></activity>
-
+        <activity android:name=".activity.DownloadActivity" />
+        <activity android:name=".activity.LiveActivity"></activity>
     </application>
 
 </manifest>
