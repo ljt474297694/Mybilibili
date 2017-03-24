@@ -12,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.widget.Toast;
 
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.adapter.HomeAdapter;
@@ -46,7 +45,6 @@ public class MainActivity extends BaseActivity {
     List<Fragment> fragments;
     private HomeAdapter homeAdapter;
 
-    int oldPosition;
 
     @Override
     protected String setUrl() {
@@ -65,32 +63,10 @@ public class MainActivity extends BaseActivity {
                     startActivity(new Intent(MainActivity.this, SearchActivity.class).putExtra("search", ""));
 
                 } else if (menuItemId == R.id.menu_search) {
-                    Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
-
+//                    Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
+                    startActivity(DownloadActivity.class);
                 }
                 return true;
-            }
-        });
-        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (oldPosition == 1 && position == 0) {
-                    if (fragments != null) {
-                        LiveFragment liveFragment = (LiveFragment) fragments.get(0);
-                        if (liveFragment.position <= 2) {
-                            liveFragment.refresh();
-                        }
-                    }
-                }
-                oldPosition = position;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
             }
         });
     }

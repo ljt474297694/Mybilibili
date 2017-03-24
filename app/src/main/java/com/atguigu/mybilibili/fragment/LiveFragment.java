@@ -1,7 +1,6 @@
 package com.atguigu.mybilibili.fragment;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -30,7 +29,6 @@ public class LiveFragment extends BaseFragment {
     @Bind(R.id.swiperefreshlayout)
     SwipeRefreshLayout swiperefreshlayout;
    public LiveAdapter adapter;
-    public int position;
 
     @Override
     protected void initListener() {
@@ -80,15 +78,7 @@ public class LiveFragment extends BaseFragment {
     private void setAdapter(LiveBean.DataBean liveBean) {
         adapter = new LiveAdapter(mContext, liveBean);
         recyclerview.setAdapter(adapter);
-        GridLayoutManager manager = new GridLayoutManager(mContext,1,LinearLayoutManager.VERTICAL,false);
-        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                LiveFragment.this.position = position;
-                return 1;
-            }
-        });
-        recyclerview.setLayoutManager(manager);
+        recyclerview.setLayoutManager(new LinearLayoutManager(mContext));
     }
 
     @Override

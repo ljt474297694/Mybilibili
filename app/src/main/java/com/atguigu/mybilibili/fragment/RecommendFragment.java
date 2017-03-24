@@ -64,9 +64,7 @@ public class RecommendFragment extends BaseFragment {
 
     @Override
     protected void initData(String json, String error) {
-        if (swiperefreshlayout != null) {
-            swiperefreshlayout.setRefreshing(false);
-        }
+        swiperefreshlayout.setRefreshing(false);
         if (TextUtils.isEmpty(json)) {
             Log.e("TAG", "RecommendFragment initData()" + error);
         } else {
@@ -85,7 +83,7 @@ public class RecommendFragment extends BaseFragment {
             adapter = new MyBaseAdapter<RecommendBean.DataBean>(mContext, data) {
                 @Override
                 protected RecommendViewHolder setViewHolder(ViewGroup parent) {
-                    return  new RecommendViewHolder((inflater.inflate(R.layout.item_recommend, parent, false)), data, mContext);
+                    return new RecommendViewHolder((inflater.inflate(R.layout.item_recommend, parent, false)), data, mContext);
                 }
             };
             recyclerview.setAdapter(adapter);
@@ -109,6 +107,7 @@ public class RecommendFragment extends BaseFragment {
             int size = adapter.datas.size();
             adapter.datas.addAll(data);
             adapter.notifyItemRangeChanged(size - 1, adapter.datas.size() - size);
+
             //上拉更多完成后 赋值 以便继续上拉
             isLoadMore = false;
         }

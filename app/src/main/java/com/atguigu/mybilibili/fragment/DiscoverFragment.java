@@ -96,8 +96,6 @@ public class DiscoverFragment extends BaseFragment {
                 return true;
             }
         });
-
-
     }
 
 
@@ -109,7 +107,6 @@ public class DiscoverFragment extends BaseFragment {
                 startActivity(new Intent(mContext,SearchActivity.class).putExtra("search",""));
                 break;
             case R.id.tv_xingququan:
-
                 break;
             case R.id.tv_huatizhongxin:
                 startActivity(HuatiActivity.class);

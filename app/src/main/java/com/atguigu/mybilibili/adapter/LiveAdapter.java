@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -97,6 +98,8 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
         TextView tvRefresh;
         @Bind(R.id.tv_name)
         TextView tvName;
+        @Bind(R.id.ll_default)
+        LinearLayout llDefault;
         ViewHolder viewHolder;
 
         public DefaultViewHolder(View itemView) {
@@ -171,7 +174,7 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
             itemLiveLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext, livesBean.getTitle()+"", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, livesBean.getTitle() + "", Toast.LENGTH_SHORT).show();
                     mContext.startActivity(new Intent(mContext, VideoActivity.class));
                 }
             });
@@ -207,6 +210,10 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
                 images.add(datas.getBanner().get(i).getImg());
             }
 
+            if (datas.getBanner().size() == 1) {
+                images.add(datas.getBanner().get(0).getImg());
+            }
+
             banner.setImages(images);
             banner.start();
             banner.setOnBannerListener(new OnBannerListener() {
@@ -215,8 +222,8 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
                     String link = datas.getBanner().get(getLayoutPosition()).getLink();
                     String title = datas.getBanner().get(getLayoutPosition()).getTitle();
                     mContext.startActivity(new Intent(mContext, WebActivity.class)
-                                            .putExtra("link",link)
-                                            .putExtra("title",title));
+                            .putExtra("link", link)
+                            .putExtra("title", title));
                 }
             });
         }
