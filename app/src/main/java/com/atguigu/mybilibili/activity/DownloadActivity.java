@@ -64,9 +64,6 @@ public class DownloadActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        for (int i = 0; i < adapter.list.size(); i++) {
-            adapter.list.get(i).cancel();
-        }
         super.onDestroy();
 
     }
