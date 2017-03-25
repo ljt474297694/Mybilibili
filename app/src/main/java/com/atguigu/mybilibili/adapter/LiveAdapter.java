@@ -173,7 +173,12 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
             itemLiveLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mContext.startActivity(new Intent(mContext, LiveActivity.class).putExtra("url",livesBean.getPlayurl()));
+                    mContext.startActivity(new Intent(mContext, LiveActivity.class).putExtra("url",livesBean.getPlayurl())
+                                        .putExtra("title",livesBean.getTitle())
+                                        .putExtra("image",livesBean.getCover().getSrc())
+                                        .putExtra("icon",livesBean.getOwner().getFace())
+                                        .putExtra("livenum",livesBean.getOnline())
+                                        .putExtra("name",livesBean.getOwner().getName()));
                 }
             });
         }

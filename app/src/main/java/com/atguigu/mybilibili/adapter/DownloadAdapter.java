@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.activity.DownloadActivity;
@@ -27,10 +29,13 @@ import butterknife.ButterKnife;
  */
 
 public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHolder> {
-    private static DownloadActivity mContext;
-    public DownloadAdapter(DownloadActivity mContext) {
+    private  DownloadActivity mContext;
+    private    SeekBar seekbar;
+    private  int seekbarProgress;
+    private  int downnum;
+    public DownloadAdapter(DownloadActivity mContext, SeekBar seekbar) {
         this.mContext = mContext;
-
+        this.seekbar = seekbar;
     }
 
     @Override
@@ -49,7 +54,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
     }
 
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+     class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.bt_download)
         Button btDownload;
         @Bind(R.id.progresss)
@@ -63,6 +68,16 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             btDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(seekbarProgress==0) {
+                        seekbarProgress = seekbar.getProgress()+1;
+                        Log.e("TAG", "ViewHolder onClick()"+seekbarProgress);
+                    }
+
+                    if(downnum>=seekbarProgress) {
+                        Toast.makeText(mContext, "同时下载数量过多 无法继续下载", Toast.LENGTH_SHORT).show();
+                        return ;
+                    }
+                    downnum++;
                     btDownload.setText("下载中!");
                     btDownload.setEnabled(false);
                     RetrofitUtils.getInstance().download(new File(MyApplication.getInstance().getExternalFilesDir(null), getLayoutPosition() + "x.apk"),
@@ -72,7 +87,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
                                     mContext.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            long l = progress*100 / total;
+                                            long l = progress * 100 / total;
                                             progresss.setProgress((int) l);
                                             String pro = (int) progress * 100 / (int) total + "%";
                                             String p = RetrofitUtils.formetFileSize(progress);
@@ -82,13 +97,16 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
                                     });
 
                                 }
+
                                 @Override
                                 public void onResponse() {
+                                    downnum--;
                                     btDownload.setText("下载完成!");
                                 }
 
                                 @Override
                                 public void onFailure(String error) {
+                                    downnum--;
                                     btDownload.setText("下载出错!");
                                     btDownload.setEnabled(true);
                                     Log.e("TAG", "ViewHolder onFailure()" + error);

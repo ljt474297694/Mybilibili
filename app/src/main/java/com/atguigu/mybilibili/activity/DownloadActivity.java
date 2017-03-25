@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.adapter.DownloadAdapter;
@@ -23,6 +25,10 @@ public class DownloadActivity extends BaseActivity {
     RecyclerView recyclerview;
     @Bind(R.id.activity_download)
     CoordinatorLayout activityDownload;
+    @Bind(R.id.tv_seekbar)
+    TextView tvSeekbar;
+    @Bind(R.id.seekbar)
+    SeekBar seekbar;
     private DownloadAdapter adapter;
 
     @Override
@@ -36,6 +42,23 @@ public class DownloadActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        seekbar.setMax(4);
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tvSeekbar.setText("同时下载数量  "+(progress+1)+"  ");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         setSupportActionBar(toolBar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//设置返回键可用
@@ -43,7 +66,7 @@ public class DownloadActivity extends BaseActivity {
 
     @Override
     protected void initData(String json, String error) {
-        adapter = new DownloadAdapter(this);
+        adapter = new DownloadAdapter(this,seekbar);
         recyclerview.setAdapter(adapter);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
     }
