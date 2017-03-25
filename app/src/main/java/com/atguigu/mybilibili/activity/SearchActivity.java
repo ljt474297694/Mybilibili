@@ -1,5 +1,6 @@
 package com.atguigu.mybilibili.activity;
 
+import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +74,15 @@ public class SearchActivity extends BaseActivity {
             search = getIntent().getStringExtra("search");
         } else {
             search = "";
+            getWindow().getDecorView().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(etSearch,
+                            0);
+                }
+            }, 200);
+
         }
         etSearch.setText(search);
         etSearch.setSelection(search.length());

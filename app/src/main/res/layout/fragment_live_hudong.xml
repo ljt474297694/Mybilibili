@@ -12,7 +12,7 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:gravity="center_vertical"
-
+        android:padding="5dp"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -21,8 +21,14 @@
             android:background="@color/colorPrimary"
             android:src="@drawable/ic_live_player_send_gift"/>
         <EditText
-            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:hint="输入想发送的弹幕"
             android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_send_grey"
+     />
     </LinearLayout>
 </RelativeLayout>
