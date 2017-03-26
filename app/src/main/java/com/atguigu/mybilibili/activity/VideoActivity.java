@@ -7,14 +7,12 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONObject;
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.bean.VideoBean;
 import com.atguigu.mybilibili.fragment.BaseFragment;
@@ -111,23 +109,16 @@ public class VideoActivity extends BaseActivity {
     protected void initView() {
         toolbar.inflateMenu(R.menu.menu_toolbar_dian);
         tvPlay.setVisibility(View.GONE);
-        BitmapUtils.glideToImage("http://i0.hdslb.com/bfs/archive/7c6c605d69914540c0f2ea1c48645113451228d9.jpg@384w_240h_1e_1c.webp", ivHead);
+        String image = getIntent().getStringExtra("image");
+        if(TextUtils.isEmpty(image)) {
+            image ="http://i0.hdslb.com/bfs/archive/7c6c605d69914540c0f2ea1c48645113451228d9.jpg@384w_240h_1e_1c.webp";
+        }
+        BitmapUtils.glideToImage(image, ivHead);
 
     }
 
     @Override
     protected void initData(String json, String error) {
-        if (TextUtils.isEmpty(json)) {
-            Log.e("TAG", "SearchActivity initData()" + error);
-        } else {
-            JSONObject jsonObject = JSONObject.parseObject(json);
-            Integer code = jsonObject.getInteger("code");
-            if (code == 0) {
-//                setAdapter(JSON.parseObject(json, VideoBean.class).getData());
-            } else {
-                Log.e("TAG", "SearchActivity initData()联网失败");
-            }
-        }
     }
 
     private void setAdapter(VideoBean.DataBean data) {
@@ -156,7 +147,7 @@ public class VideoActivity extends BaseActivity {
 //                Toast.makeText(VideoActivity.this, "播放", Toast.LENGTH_SHORT).show();
                 appBarLayout.setExpanded(true);
 //                appBarLayout.setVisibility(View.INVISIBLE);
-                floatingActionButton.setVisibility(View.GONE);
+//                floatingActionButton.setVisibility(View.GONE);
                 break;
         }
     }

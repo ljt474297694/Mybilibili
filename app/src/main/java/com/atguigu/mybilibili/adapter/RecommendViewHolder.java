@@ -86,7 +86,7 @@ public class RecommendViewHolder extends BaseViewHodler {
             @Override
             public void onClick(View v) {
                 Toast.makeText(mContext, datas.get(getLayoutPosition()).getTitle(), Toast.LENGTH_SHORT).show();
-                mContext.startActivity(new Intent(mContext,VideoActivity.class));
+                mContext.startActivity(new Intent(mContext,VideoActivity.class).putExtra("image",datas.get(getLayoutPosition()).getCover()));
             }
         });
     }

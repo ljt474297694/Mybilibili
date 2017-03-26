@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
 
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
+
 /**
  * Created by 李金桐 on 2017/3/21.
  * QQ: 474297694
@@ -19,6 +21,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
+         ZXingLibrary.initDisplayOpinion(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());

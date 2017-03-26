@@ -1,10 +1,17 @@
 package com.atguigu.mybilibili.fragment;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -15,6 +22,8 @@ import com.atguigu.mybilibili.activity.OriginalActivity;
 import com.atguigu.mybilibili.activity.SearchActivity;
 import com.atguigu.mybilibili.bean.DiscoverTagBean;
 import com.atguigu.mybilibili.utils.AppNetConfig;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -92,19 +101,36 @@ public class DiscoverFragment extends BaseFragment {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 String str = ((TextView) view).getText().toString().trim();
-                startActivity(new Intent(mContext,SearchActivity.class).putExtra("search",str));
+                startActivity(new Intent(mContext, SearchActivity.class).putExtra("search", str));
                 return true;
             }
         });
     }
 
 
-
-    @OnClick({R.id.tv_search,R.id.tv_xingququan, R.id.tv_huatizhongxin, R.id.tv_huodongzhongxin, R.id.tv_yuanchuang, R.id.tv_quanqu})
+    @OnClick({R.id.iv_scan, R.id.tv_search, R.id.tv_xingququan, R.id.tv_huatizhongxin, R.id.tv_huodongzhongxin, R.id.tv_yuanchuang, R.id.tv_quanqu})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_scan:
+//                Toast.makeText(mContext, "二维码", Toast.LENGTH_SHORT).show();
+
+                if (ContextCompat.checkSelfPermission(mContext,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions((Activity) mContext,
+                            new String[]{Manifest.permission.CAMERA},
+                            1);
+                }else{
+                    Intent intent = new Intent(mContext, CaptureActivity.class);
+                    startActivityForResult(intent, 0);
+                }
+
+
+
+                break;
             case R.id.tv_search:
-                startActivity(new Intent(mContext,SearchActivity.class).putExtra("search",""));
+                startActivity(new Intent(mContext, SearchActivity.class).putExtra("search", ""));
                 break;
             case R.id.tv_xingququan:
                 break;
@@ -120,6 +146,25 @@ public class DiscoverFragment extends BaseFragment {
             case R.id.tv_quanqu:
                 startActivity(OriginalActivity.class);
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 0) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+                    Toast.makeText(mContext, "解析结果:" + result, Toast.LENGTH_LONG).show();
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    Toast.makeText(mContext, "解析二维码失败", Toast.LENGTH_LONG).show();
+                }
+            }
         }
     }
 }
