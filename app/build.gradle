@@ -38,5 +38,6 @@ dependencies {
     compile 'com.github.ctiao:dfm:0.7.3'
     compile 'com.github.CarGuo:GSYVideoPlayer:v1.6.1'
     compile 'cn.yipianfengye.android:zxing-library:2.1'
+    compile 'com.wenwenwen888:searchbox:1.0.0'
 
 }

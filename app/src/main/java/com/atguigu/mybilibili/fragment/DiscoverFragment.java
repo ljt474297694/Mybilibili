@@ -24,6 +24,8 @@ import com.atguigu.mybilibili.bean.DiscoverTagBean;
 import com.atguigu.mybilibili.utils.AppNetConfig;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.wyt.searchbox.SearchFragment;
+import com.wyt.searchbox.custom.IOnSearchClickListener;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -53,9 +55,17 @@ public class DiscoverFragment extends BaseFragment {
     TextView tvYuanchuang;
     @Bind(R.id.tv_quanqu)
     TextView tvQuanqu;
+    private SearchFragment searchFragment;
 
     @Override
     protected void initListener() {
+        searchFragment = SearchFragment.newInstance();
+        searchFragment.setOnSearchClickListener(new IOnSearchClickListener() {
+            @Override
+            public void OnSearchClick(String keyword) {
+                startActivity(new Intent(mContext, SearchActivity.class).putExtra("search", keyword));
+            }
+        });
     }
 
     @Override
@@ -130,7 +140,8 @@ public class DiscoverFragment extends BaseFragment {
 
                 break;
             case R.id.tv_search:
-                startActivity(new Intent(mContext, SearchActivity.class).putExtra("search", ""));
+                searchFragment.show(getChildFragmentManager(),SearchFragment.TAG);
+
                 break;
             case R.id.tv_xingququan:
                 break;

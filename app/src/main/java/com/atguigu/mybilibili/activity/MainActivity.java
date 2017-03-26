@@ -20,6 +20,8 @@ import com.atguigu.mybilibili.fragment.DiscoverFragment;
 import com.atguigu.mybilibili.fragment.LiveFragment;
 import com.atguigu.mybilibili.fragment.PartitionFragment;
 import com.atguigu.mybilibili.fragment.RecommendFragment;
+import com.wyt.searchbox.SearchFragment;
+import com.wyt.searchbox.custom.IOnSearchClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,7 @@ public class MainActivity extends BaseActivity {
     NavigationView navigationview;
     List<Fragment> fragments;
     private HomeAdapter homeAdapter;
+    private SearchFragment searchFragment;
 
 
     @Override
@@ -60,8 +63,7 @@ public class MainActivity extends BaseActivity {
 
                 if (menuItemId == R.id.menu_download) {
 //                    Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainActivity.this, SearchActivity.class).putExtra("search", ""));
-
+                    searchFragment.show(getSupportFragmentManager(),SearchFragment.TAG);
                 } else if (menuItemId == R.id.menu_search) {
 //                    Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
                     startActivity(DownloadActivity.class);
@@ -69,11 +71,19 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
         });
+        searchFragment.setOnSearchClickListener(new IOnSearchClickListener() {
+            @Override
+            public void OnSearchClick(String keyword) {
+                startActivity(new Intent(MainActivity.this, SearchActivity.class).putExtra("search", keyword));
+            }
+        });
     }
 
     @Override
     protected void initView() {
         toolBar.inflateMenu(R.menu.menu_toolbar);
+        searchFragment = SearchFragment.newInstance();
+
     }
 
     @Override
@@ -171,4 +181,6 @@ public class MainActivity extends BaseActivity {
         }
         return super.dispatchTouchEvent(ev);
     }
+
+
 }
