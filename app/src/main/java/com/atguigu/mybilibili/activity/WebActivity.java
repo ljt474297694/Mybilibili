@@ -64,7 +64,9 @@ public class WebActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
         toolBar.inflateMenu(R.menu.menu_web);
+
         title = getIntent().getStringExtra("title");
         url = getIntent().getStringExtra("link");
         if (!TextUtils.isEmpty(title)) {

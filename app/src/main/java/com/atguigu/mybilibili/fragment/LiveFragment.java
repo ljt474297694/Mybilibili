@@ -25,10 +25,10 @@ public class LiveFragment extends BaseFragment {
 
 
     @Bind(R.id.recyclerview)
- public    RecyclerView recyclerview;
+    public RecyclerView recyclerview;
     @Bind(R.id.swiperefreshlayout)
     SwipeRefreshLayout swiperefreshlayout;
-   public LiveAdapter adapter;
+    public LiveAdapter adapter;
 
     @Override
     protected void initListener() {

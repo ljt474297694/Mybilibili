@@ -156,7 +156,6 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
 
         ViewHolder(View view, List<LiveBean.DataBean.PartitionsBean.LivesBean> datas) {
             super(view);
-            ButterKnife.bind(this, view);
             this.datas = datas;
         }
 

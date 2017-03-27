@@ -18,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.activity.HuatiActivity;
 import com.atguigu.mybilibili.activity.HuoDongActivity;
+import com.atguigu.mybilibili.activity.MailActivity;
 import com.atguigu.mybilibili.activity.OriginalActivity;
 import com.atguigu.mybilibili.activity.SearchActivity;
 import com.atguigu.mybilibili.bean.DiscoverTagBean;
@@ -118,9 +119,14 @@ public class DiscoverFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.iv_scan, R.id.tv_search, R.id.tv_xingququan, R.id.tv_huatizhongxin, R.id.tv_huodongzhongxin, R.id.tv_yuanchuang, R.id.tv_quanqu})
+    @OnClick({R.id.tv_mail,R.id.iv_scan, R.id.tv_search, R.id.tv_xingququan, R.id.tv_huatizhongxin, R.id.tv_huodongzhongxin, R.id.tv_yuanchuang, R.id.tv_quanqu})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tv_mail:
+//                Toast.makeText(mContext, "购物车", Toast.LENGTH_SHORT).show();
+                startActivity(MailActivity.class);
+                break;
+
             case R.id.iv_scan:
 //                Toast.makeText(mContext, "二维码", Toast.LENGTH_SHORT).show();
 

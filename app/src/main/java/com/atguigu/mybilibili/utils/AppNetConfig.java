@@ -29,5 +29,6 @@ public class AppNetConfig {
     public static final String CARTOON ="http://bangumi.bilibili.com/api/app_index_page_v4?build=3940&device=phone&mobi_app=iphone&platform=ios";
     //video 评论
     public static final String VIDEO ="http://api.bilibili.com/x/v2/reply?_device=android&appkey=1d8b6e7d45233436&build=501000&mobi_app=android&oid=9270287&plat=2&platform=android&pn=1&ps=20&sort=0&type=1&sign=d4a5c3858fb6e820661f4083f9d12614";
+    public static final String MAIL ="http://bmall.bilibili.com/api/product/detail.do?skuId=90";
 
 }
