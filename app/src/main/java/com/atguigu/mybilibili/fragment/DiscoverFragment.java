@@ -142,8 +142,6 @@ public class DiscoverFragment extends BaseFragment {
                     startActivityForResult(intent, 0);
                 }
 
-
-
                 break;
             case R.id.tv_search:
                 searchFragment.show(getChildFragmentManager(),SearchFragment.TAG);

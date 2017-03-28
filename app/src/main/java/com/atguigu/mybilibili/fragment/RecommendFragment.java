@@ -108,7 +108,6 @@ public class RecommendFragment extends BaseFragment {
             int size = adapter.datas.size();
             adapter.datas.addAll(data);
             adapter.notifyItemRangeChanged(size - 1, adapter.datas.size() - size);
-
             //上拉更多完成后 赋值 以便继续上拉
             isLoadMore = false;
         }
