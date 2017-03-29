@@ -111,8 +111,6 @@ public class MailActivity extends BaseActivity {
                     break;
             }
         }
-
-        
     };
     @Override
     protected String setUrl() {
@@ -173,6 +171,9 @@ public class MailActivity extends BaseActivity {
     //判断商品是否已经添加过 如果添加过记录 记录数量 如果没添加过默认数量1
     private void isFindMail(int id) {
         allMail = dao.getAllMail();
+        if(allMail==null) {
+            return;
+        }
         for (int i = 0; i < allMail.size(); i++) {
             if (allMail.get(i).getId() == id) {
                 number = allMail.get(i).getNumber();
@@ -180,6 +181,7 @@ public class MailActivity extends BaseActivity {
                 return;
             }
         }
+        
         isFindMail = false;
         number = 1;
     }

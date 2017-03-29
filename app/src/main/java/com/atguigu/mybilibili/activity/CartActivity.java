@@ -58,7 +58,7 @@ public class CartActivity extends BaseActivity {
     protected void initData(String json, String error) {
         dao = new MailDAO(this);
         allMail = dao.getAllMail();
-        if (allMail == null && allMail.size() == 0) {
+        if (allMail == null || allMail.size() == 0) {
             Toast.makeText(CartActivity.this, "还没有数据", Toast.LENGTH_SHORT).show();
         } else {
             CartAdapter adapter = new CartAdapter(this, allMail, tvBianji, checkbox,tvPrice);

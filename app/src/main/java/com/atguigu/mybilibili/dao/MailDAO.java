@@ -28,6 +28,7 @@ public class MailDAO {
         values.put(TableField.MAIL_NUM, mailBean.getNumber());
         values.put(TableField.MAIL_ID, mailBean.getId());
         readableDatabase.replace(TableField.TABLE_NAME, null, values);
+
     }
     public void updataMail(MailBean mailBean){
         if (mailBean == null) return;
@@ -47,6 +48,8 @@ public class MailDAO {
     public ArrayList<MailBean> getAllMail(){
         SQLiteDatabase database = mailDB.getReadableDatabase();
         Cursor cursor = database.rawQuery("select * from " + TableField.TABLE_NAME, null);
+        if(cursor==null) return null;
+
         ArrayList<MailBean> datas = new ArrayList<>();
 
         MailBean bean;
