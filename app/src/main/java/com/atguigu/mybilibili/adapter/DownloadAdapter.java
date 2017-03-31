@@ -29,6 +29,9 @@ import butterknife.ButterKnife;
  */
 
 public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHolder> {
+
+
+
     private  DownloadActivity mContext;
     private    SeekBar seekbar;
     private  int seekbarProgress;
@@ -94,15 +97,12 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
                                             tvProgress.setText(p + " / " + t + "\t" + pro);
                                         }
                                     });
-
                                 }
-
                                 @Override
                                 public void onResponse() {
                                     downnum--;
                                     btDownload.setText("下载完成!");
                                 }
-
                                 @Override
                                 public void onFailure(String error) {
                                     downnum--;
@@ -115,6 +115,8 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             });
         }
     }
+    class DoewnLoadBean {
 
+    }
 
 }

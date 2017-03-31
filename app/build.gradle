@@ -11,8 +11,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-
-
         ndk {
             //选择要添加的对应cpu类型的.so库。
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
@@ -23,12 +21,21 @@ android {
                 JPUSH_APPKEY : "820506d629347f3b8f4209cd", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
         ]
+
+        jackOptions {
+            enabled true
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
