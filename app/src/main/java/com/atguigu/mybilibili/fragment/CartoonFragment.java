@@ -64,7 +64,7 @@ public class CartoonFragment extends BaseFragment {
         } else {
             JSONObject jsonObject = JSONObject.parseObject(json);
             Integer code = jsonObject.getInteger("code");
-            if (code == 0) {
+            if (code == 0) { 
                 setAdapter(JSON.parseObject(json, CartoonBean.class).getResult().getPrevious().getList());
             } else {
                 Log.e("TAG", "CartoonFragment initData()联网失败");

@@ -39,7 +39,7 @@ import butterknife.ButterKnife;
 public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
     private static final int DEFAULT = 2;
     private static LiveBean.DataBean datas;
-    private static Context mContext;
+    private  Context mContext;
     private static final int BANNER = 0;
     private final LayoutInflater inflater;
 
@@ -85,7 +85,7 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
     }
 
 
-    static class DefaultViewHolder extends BaseViewHodler {
+     class DefaultViewHolder extends BaseViewHodler {
         @Bind(R.id.iv_icon)
         ImageView ivIcon;
         @Bind(R.id.tv_number)
@@ -139,7 +139,7 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
     }
 
 
-    static class ViewHolder extends BaseViewHodler {
+     class ViewHolder extends BaseViewHodler {
         private List<LiveBean.DataBean.PartitionsBean.LivesBean> datas;
         @Bind(R.id.item_live_cover)
         ImageView itemLiveCover;
@@ -188,7 +188,7 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
     }
 
 
-    static class BannerViewHodler extends BaseViewHodler {
+     class BannerViewHodler extends BaseViewHodler {
         @Bind(R.id.banner)
         Banner banner;
 
@@ -231,7 +231,7 @@ public class LiveAdapter extends RecyclerView.Adapter<BaseViewHodler> {
         }
     }
 
-    static class BannerBottomViewHodler extends BaseViewHodler {
+     class BannerBottomViewHodler extends BaseViewHodler {
         @Bind(R.id.attention)
         LinearLayout attention;
         @Bind(R.id.imageView)

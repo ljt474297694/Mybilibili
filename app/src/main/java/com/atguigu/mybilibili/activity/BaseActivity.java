@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends AppCompatActivity {
 
     private RequestCall requestCall;
+    private boolean isShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(setLayoutId());
 
         ButterKnife.bind(this);
+        isShow = true;
         initView();
         initDataNet();
         initListener();
@@ -34,19 +36,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         requestCall = NetUtils.getInstance().okhttpUtilsget(setUrl(), new NetUtils.resultJson() {
             @Override
             public void onResponse(String json) {
-                initData(json, null);
+                if (isShow) initData(json, null);
             }
 
             @Override
             public void onError(String error) {
-                initData(null, error);
+                if (isShow) initData(null, error);
             }
         });
     }
 
     @Override
     protected void onDestroy() {
-        if(requestCall!=null) {
+        isShow = false;
+        if (requestCall != null) {
             requestCall.cancel();
         }
         super.onDestroy();

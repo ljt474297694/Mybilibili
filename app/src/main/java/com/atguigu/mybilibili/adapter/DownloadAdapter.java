@@ -18,9 +18,14 @@ import com.atguigu.mybilibili.utils.RetrofitUtils;
 import com.atguigu.mybilibili.view.MyProgressBar;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by 李金桐 on 2017/3/24.
@@ -31,11 +36,11 @@ import butterknife.ButterKnife;
 public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHolder> {
 
 
+    private DownloadActivity mContext;
+    private SeekBar seekbar;
+    private int seekbarProgress;
+    private int downnum;
 
-    private  DownloadActivity mContext;
-    private    SeekBar seekbar;
-    private  int seekbarProgress;
-    private  int downnum;
     public DownloadAdapter(DownloadActivity mContext, SeekBar seekbar) {
         this.mContext = mContext;
         this.seekbar = seekbar;
@@ -56,7 +61,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
     }
 
 
-     class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.bt_download)
         Button btDownload;
         @Bind(R.id.progresss)
@@ -70,14 +75,14 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             btDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(seekbarProgress==0) {
-                        seekbarProgress = seekbar.getProgress()+1;
-                        Log.e("TAG", "ViewHolder onClick()"+seekbarProgress);
+                    if (seekbarProgress == 0) {
+                        seekbarProgress = seekbar.getProgress() + 1;
+                        Log.e("TAG", "ViewHolder onClick()" + seekbarProgress);
                     }
 
-                    if(downnum>=seekbarProgress) {
+                    if (downnum >= seekbarProgress) {
                         Toast.makeText(mContext, "同时下载数量过多 无法继续下载", Toast.LENGTH_SHORT).show();
-                        return ;
+                        return;
                     }
                     downnum++;
                     btDownload.setText("下载中!");
@@ -86,23 +91,42 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
                             new ProgressResponseBody.ProgressListener() {
                                 @Override
                                 public void onProgress(final long progress, final long total, final boolean done) {
-                                    mContext.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            long l = progress * 100 / total;
-                                            progresss.setProgress((int) l);
-                                            String pro = (int) progress * 100 / (int) total + "%";
-                                            String p = RetrofitUtils.formetFileSize(progress);
-                                            String t = RetrofitUtils.formetFileSize(total);
-                                            tvProgress.setText(p + " / " + t + "\t" + pro);
-                                        }
-                                    });
+                                    Observable.just(progress, total).buffer(2).observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(new Observer<List<Long>>() {
+                                                @Override
+                                                public void onSubscribe(Disposable d) {
+
+                                                }
+
+                                                @Override
+                                                public void onNext(List<Long> value) {
+                                                    Long progress = value.get(0);
+                                                    Long total = value.get(1);
+                                                    long l = progress * 100 / total;
+                                                    progresss.setProgress((int) l);
+                                                    int l1 = (int) (progress * 100);
+                                                    int total1 = (int) (total + 1 - 1);
+                                                    String pro = l1 / total1 + "%";
+                                                    String p = RetrofitUtils.formetFileSize(progress);
+                                                    String t = RetrofitUtils.formetFileSize(total);
+                                                    tvProgress.setText(p + " / " + t + "\t" + pro);
+                                                }
+
+                                                @Override
+                                                public void onError(Throwable e) {
+                                                }
+                                                @Override
+                                                public void onComplete() {
+                                                }
+                                            });
                                 }
+
                                 @Override
                                 public void onResponse() {
                                     downnum--;
                                     btDownload.setText("下载完成!");
                                 }
+
                                 @Override
                                 public void onFailure(String error) {
                                     downnum--;
@@ -115,6 +139,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             });
         }
     }
+
     class DoewnLoadBean {
 
     }

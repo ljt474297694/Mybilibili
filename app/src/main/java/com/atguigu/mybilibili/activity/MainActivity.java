@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity {
 
                 if (menuItemId == R.id.menu_download) {
 //                    Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
-                    searchFragment.show(getSupportFragmentManager(),SearchFragment.TAG);
+                    searchFragment.show(getSupportFragmentManager(), SearchFragment.TAG);
                 } else if (menuItemId == R.id.menu_search) {
 //                    Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
                     startActivity(DownloadActivity.class);
@@ -83,7 +83,6 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         toolBar.inflateMenu(R.menu.menu_toolbar);
         searchFragment = SearchFragment.newInstance();
-
     }
 
     @Override
@@ -91,7 +90,7 @@ public class MainActivity extends BaseActivity {
         fragments = new ArrayList<>();
         fragments.add(new LiveFragment());
         fragments.add(new RecommendFragment());
-        fragments.add (new CartoonFragment());
+        fragments.add(new CartoonFragment());
         fragments.add(new PartitionFragment());
         fragments.add(new DiscoverFragment());
 
