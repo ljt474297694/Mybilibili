@@ -20,7 +20,7 @@ import com.atguigu.mybilibili.view.fragment.DiscoverFragment;
 import com.atguigu.mybilibili.view.fragment.LiveFragment;
 import com.atguigu.mybilibili.view.fragment.PartitionFragment;
 import com.atguigu.mybilibili.view.fragment.RecommendFragment;
-import com.atguigu.mybilibili.view.BaseActivity1;
+import com.atguigu.mybilibili.view.base.BaseActivity;
 import com.wyt.searchbox.SearchFragment;
 import com.wyt.searchbox.custom.IOnSearchClickListener;
 
@@ -29,7 +29,7 @@ import java.util.List;
 
 import butterknife.Bind;
 
-public class MainActivity extends BaseActivity1 {
+public class MainActivity extends BaseActivity {
 
     @Bind(R.id.toolBar)
     Toolbar toolBar;

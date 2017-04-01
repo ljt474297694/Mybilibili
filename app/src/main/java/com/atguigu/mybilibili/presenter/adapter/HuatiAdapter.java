@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.view.activity.WebActivity;
-import com.atguigu.mybilibili.model.bean.DiscoverHuatiBean;
+import com.atguigu.mybilibili.bean.DiscoverHuatiBean;
 import com.atguigu.mybilibili.utils.BitmapUtils;
 
 import java.util.List;
@@ -60,6 +60,10 @@ public class HuatiAdapter extends RecyclerView.Adapter<HuatiAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return datas.size();
+    }
+
+    public void refresh(List<DiscoverHuatiBean.ListBean> list) {
+        this.datas = list;
     }
 
 

@@ -4,9 +4,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.atguigu.mybilibili.R;
-import com.atguigu.mybilibili.model.bean.SearchBean;
+import com.atguigu.mybilibili.bean.SearchBean;
 import com.atguigu.mybilibili.presenter.adapter.SearchFragmentAdapter;
-import com.atguigu.mybilibili.view.BaseFragment;
+import com.atguigu.mybilibili.view.base.BaseFragment;
 
 import butterknife.Bind;
 

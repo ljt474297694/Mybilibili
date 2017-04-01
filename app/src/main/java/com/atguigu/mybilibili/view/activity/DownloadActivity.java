@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.presenter.adapter.DownloadAdapter;
+import com.atguigu.mybilibili.view.base.BaseActivity;
 
 import butterknife.Bind;
 
@@ -32,7 +33,7 @@ public class DownloadActivity extends BaseActivity {
     private DownloadAdapter adapter;
 
     @Override
-    protected String setUrl() {
+    public String setUrl() {
         return null;
     }
 
@@ -74,6 +75,16 @@ public class DownloadActivity extends BaseActivity {
     @Override
     protected int setLayoutId() {
         return R.layout.activity_download;
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 
     @Override

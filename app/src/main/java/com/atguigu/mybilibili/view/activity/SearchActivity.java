@@ -16,10 +16,11 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.mybilibili.R;
+import com.atguigu.mybilibili.bean.SearchBean;
 import com.atguigu.mybilibili.presenter.adapter.SearchAdapter;
-import com.atguigu.mybilibili.model.bean.SearchBean;
-import com.atguigu.mybilibili.view.fragment.SearchFragment;
 import com.atguigu.mybilibili.utils.AppNetConfig;
+import com.atguigu.mybilibili.view.base.BaseActivity;
+import com.atguigu.mybilibili.view.fragment.SearchFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class SearchActivity extends BaseActivity {
     private SearchBean.DataBean data;
 
     @Override
-    protected String setUrl() {
+    public String setUrl() {
         return AppNetConfig.search(search);
     }
 
@@ -82,11 +83,9 @@ public class SearchActivity extends BaseActivity {
                             0);
                 }
             }, 200);
-
         }
         etSearch.setText(search);
         etSearch.setSelection(search.length());
-
     }
 
     @Override
@@ -122,6 +121,16 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected int setLayoutId() {
         return R.layout.activity_search;
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 
 

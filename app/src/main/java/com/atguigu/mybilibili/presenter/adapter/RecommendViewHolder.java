@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.view.activity.VideoActivity;
-import com.atguigu.mybilibili.model.bean.RecommendBean;
+import com.atguigu.mybilibili.bean.RecommendBean;
 import com.atguigu.mybilibili.utils.BitmapUtils;
 
 import java.text.SimpleDateFormat;

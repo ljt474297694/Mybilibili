@@ -9,10 +9,10 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.mybilibili.R;
-import com.atguigu.mybilibili.model.bean.LiveBean;
+import com.atguigu.mybilibili.bean.LiveBean;
 import com.atguigu.mybilibili.presenter.adapter.LiveAdapter;
 import com.atguigu.mybilibili.utils.AppNetConfig;
-import com.atguigu.mybilibili.view.BaseFragment;
+import com.atguigu.mybilibili.view.base.BaseFragment;
 
 import butterknife.Bind;
 

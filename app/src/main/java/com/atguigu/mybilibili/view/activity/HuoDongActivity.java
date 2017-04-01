@@ -12,9 +12,10 @@ import android.view.View;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.mybilibili.R;
+import com.atguigu.mybilibili.bean.DiscoverHuatiBean;
 import com.atguigu.mybilibili.presenter.adapter.HuatiAdapter;
-import com.atguigu.mybilibili.model.bean.DiscoverHuatiBean;
 import com.atguigu.mybilibili.utils.AppNetConfig;
+import com.atguigu.mybilibili.view.base.BaseActivity;
 
 import java.util.List;
 
@@ -28,9 +29,11 @@ public class HuoDongActivity extends BaseActivity {
     RecyclerView recyclerview;
     @Bind(R.id.swiperefreshlayout)
     SwipeRefreshLayout swiperefreshlayout;
+    public boolean isRefresh;
+    private HuatiAdapter adapter;
 
     @Override
-    protected String setUrl() {
+    public String setUrl() {
         return AppNetConfig.DISCOVER_HUODONG;
     }
 
@@ -45,6 +48,7 @@ public class HuoDongActivity extends BaseActivity {
         swiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                isRefresh = true;
                 refresh();
             }
         });
@@ -59,7 +63,6 @@ public class HuoDongActivity extends BaseActivity {
 
     @Override
     protected void initData(String json, String error) {
-        swiperefreshlayout.setRefreshing(false);
         if (TextUtils.isEmpty(json)) {
             Log.e("TAG", "HuoDongActivity initData()" + error);
         } else {
@@ -74,13 +77,32 @@ public class HuoDongActivity extends BaseActivity {
     }
 
     private void setAdapter(List<DiscoverHuatiBean.ListBean> list) {
-        recyclerview.setLayoutManager(new LinearLayoutManager(this));
-        recyclerview.setAdapter(new HuatiAdapter(this, list));
+        if (adapter == null) {
+            adapter = new HuatiAdapter(this, list);
+        } else {
+            adapter.refresh(list);
+            adapter.notifyDataSetChanged();
+            isRefresh = false;
+        }
+        if (!isRefresh) {
+            recyclerview.setAdapter(adapter);
+            recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        }
     }
 
     @Override
     protected int setLayoutId() {
         return R.layout.activity_huo_dong;
+    }
+
+    @Override
+    public void showLoading() {
+        swiperefreshlayout.setRefreshing(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        swiperefreshlayout.setRefreshing(false);
     }
 
 }

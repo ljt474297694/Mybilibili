@@ -19,7 +19,7 @@ public class NetUtils {
     private NetUtils() {
     }
 
-    static class Tool {
+    private static class Tool {
         private static NetUtils okhttpUtils = new NetUtils();
     }
 
@@ -31,7 +31,7 @@ public class NetUtils {
      * @param url    url
      * @param result resultBean 回调bean的接口
      */
-    public RequestCall okhttpUtilsget( String url,final resultJson result) {
+    public RequestCall okhttpUtilsget(String url, final resultJson result) {
         if (result == null) {
             return null;
         }
@@ -46,6 +46,7 @@ public class NetUtils {
             public void onError(Call call, Exception e, int id) {
                 result.onError(e.getMessage());
             }
+
             @Override
             public void onResponse(String response, int id) {
                 if (TextUtils.isEmpty(response)) {

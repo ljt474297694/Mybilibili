@@ -20,12 +20,14 @@ import android.widget.Toast;
 import com.alipay.sdk.app.PayTask;
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.model.dao.MailBean;
-import com.atguigu.mybilibili.model.dao.MailDAO;
+import com.atguigu.mybilibili.presenter.CartDaoPresenter;
 import com.atguigu.mybilibili.utils.BitmapUtils;
 import com.atguigu.mybilibili.utils.VirtualkeyboardHeight;
 import com.atguigu.mybilibili.utils.pay.PayKeys;
 import com.atguigu.mybilibili.utils.pay.PayResult;
 import com.atguigu.mybilibili.utils.pay.SignUtils;
+import com.atguigu.mybilibili.view.ICartDaoView;
+import com.atguigu.mybilibili.view.base.BaseActivity;
 import com.atguigu.mybilibili.view.view.AddSubView;
 
 import java.io.UnsupportedEncodingException;
@@ -39,7 +41,7 @@ import java.util.Random;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class MailActivity extends BaseActivity {
+public class MailActivity extends BaseActivity implements ICartDaoView {
 
 
     @Bind(R.id.toolBar)
@@ -48,7 +50,6 @@ public class MailActivity extends BaseActivity {
     ImageView ivIcon;
     @Bind(R.id.tv_name)
     TextView tvName;
-    private MailDAO dao;
     private ArrayList<MailBean> allMail;
     private int number = 1;
     private boolean isFindMail;
@@ -112,8 +113,10 @@ public class MailActivity extends BaseActivity {
             }
         }
     };
+    private CartDaoPresenter presenter;
+
     @Override
-    protected String setUrl() {
+    public String setUrl() {
         return null;
     }
 
@@ -136,13 +139,24 @@ public class MailActivity extends BaseActivity {
 
     @Override
     protected void initData(String json, String error) {
-        dao = new MailDAO(this);
+        presenter = new CartDaoPresenter(this);
+        presenter.getAllData();
 
     }
 
     @Override
     protected int setLayoutId() {
         return R.layout.activity_mail;
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 
 
@@ -170,8 +184,8 @@ public class MailActivity extends BaseActivity {
 
     //判断商品是否已经添加过 如果添加过记录 记录数量 如果没添加过默认数量1
     private void isFindMail(int id) {
-        allMail = dao.getAllMail();
-        if(allMail==null) {
+        presenter.getAllData();
+        if (allMail == null) {
             return;
         }
         for (int i = 0; i < allMail.size(); i++) {
@@ -181,7 +195,7 @@ public class MailActivity extends BaseActivity {
                 return;
             }
         }
-        
+
         isFindMail = false;
         number = 1;
     }
@@ -192,6 +206,11 @@ public class MailActivity extends BaseActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void getAll(ArrayList<MailBean> data) {
+        allMail = data;
     }
 
     /**
@@ -253,10 +272,10 @@ public class MailActivity extends BaseActivity {
         bt_goodinfo_confim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isFindMail) {
-                    dao.updataMail(new MailBean(id, number));
-                }else{
-                    dao.addMail(new MailBean(id, number));
+                if (isFindMail) {
+                    presenter.updata(new MailBean(id, number));
+                } else {
+                    presenter.add(new MailBean(id, number));
                 }
                 window.dismiss();
                 //添加购物车
@@ -278,10 +297,8 @@ public class MailActivity extends BaseActivity {
     }
 
 
-
     /**
      * call alipay sdk pay. 调用SDK支付
-     *
      */
     public void pay() {
         // 订单
@@ -405,4 +422,6 @@ public class MailActivity extends BaseActivity {
     public String getSignType() {
         return "sign_type=\"RSA\"";
     }
+
+
 }

@@ -14,9 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.atguigu.mybilibili.R;
-import com.atguigu.mybilibili.model.bean.VideoBean;
-import com.atguigu.mybilibili.view.fragment.BaseFragment;
+import com.atguigu.mybilibili.bean.VideoBean;
 import com.atguigu.mybilibili.utils.BitmapUtils;
+import com.atguigu.mybilibili.view.base.BaseActivity;
+import com.atguigu.mybilibili.view.base.BaseFragment;
 
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class VideoActivity extends BaseActivity {
     };
 
     @Override
-    protected String setUrl() {
+    public String setUrl() {
         return null;
     }
 
@@ -127,6 +128,16 @@ public class VideoActivity extends BaseActivity {
     @Override
     protected int setLayoutId() {
         return R.layout.activity_video;
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 
 

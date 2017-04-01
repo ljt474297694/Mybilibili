@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atguigu.mybilibili.R;
-import com.atguigu.mybilibili.model.bean.SearchBean;
+import com.atguigu.mybilibili.bean.SearchBean;
 import com.atguigu.mybilibili.utils.BitmapUtils;
 
 import java.util.List;

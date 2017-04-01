@@ -1,7 +1,7 @@
 package com.atguigu.mybilibili.view.fragment;
 
 import com.atguigu.mybilibili.R;
-import com.atguigu.mybilibili.view.BaseFragment;
+import com.atguigu.mybilibili.view.base.BaseFragment;
 
 /**
  * Created by 李金桐 on 2017/3/25.

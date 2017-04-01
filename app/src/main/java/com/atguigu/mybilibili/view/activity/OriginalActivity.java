@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.presenter.adapter.OriginalAdapter;
+import com.atguigu.mybilibili.view.base.BaseActivity;
 import com.atguigu.mybilibili.view.fragment.OriginalFragment;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class OriginalActivity extends BaseActivity {
     CoordinatorLayout activityOriginal;
     List<Fragment> fragments;
     @Override
-    protected String setUrl() {
+    public String setUrl() {
         return null;
     }
 
@@ -89,6 +90,17 @@ public class OriginalActivity extends BaseActivity {
     protected int setLayoutId() {
         return R.layout.activity_original;
     }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
     private int startY;
     private int startX;
     private boolean isScrollY;

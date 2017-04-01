@@ -9,9 +9,11 @@ import android.widget.TextView;
 
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.model.dao.MailBean;
-import com.atguigu.mybilibili.model.dao.MailDAO;
+import com.atguigu.mybilibili.presenter.CartDaoPresenter;
+import com.atguigu.mybilibili.view.ICartDaoView;
 import com.atguigu.mybilibili.view.view.AddSubView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -22,12 +24,12 @@ import butterknife.Bind;
  * 功能: xxxx
  */
 
-public class CartAdapter extends MyBaseAdapter<MailBean> {
+public class CartAdapter extends MyBaseAdapter<MailBean> implements ICartDaoView {
     private final CheckBox quanXuanCheckbox;
     private final TextView tvBianji;
     private final TextView tvPrice;
     private boolean isDelete = false;
-    private final MailDAO dao;
+    private final CartDaoPresenter presenter;
 
     public CartAdapter(Context mContext, final List<MailBean> data, final TextView tvBianji, CheckBox checkbox, TextView tvPrice) {
         super(mContext, data);
@@ -35,7 +37,7 @@ public class CartAdapter extends MyBaseAdapter<MailBean> {
         this.tvBianji = tvBianji;
         this.quanXuanCheckbox = checkbox;
         this.tvPrice = tvPrice;
-        dao = new MailDAO(mContext);
+        presenter = new CartDaoPresenter(this);
         tvBianji.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +53,7 @@ public class CartAdapter extends MyBaseAdapter<MailBean> {
         quanXuanCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0; i <datas.size() ; i++) {
+                for (int i = 0; i < datas.size(); i++) {
                     MailBean bean = datas.get(i);
                     bean.setClick(quanXuanCheckbox.isChecked());
                     notifyPrice();
@@ -81,6 +83,11 @@ public class CartAdapter extends MyBaseAdapter<MailBean> {
     @Override
     protected BaseViewHodler setViewHolder(ViewGroup parent) {
         return new CartViewHolder(inflater.inflate(R.layout.item_cart, parent, false));
+    }
+
+    @Override
+    public void getAll(ArrayList<MailBean> data) {
+        this.datas = data;
     }
 
 
@@ -133,17 +140,18 @@ public class CartAdapter extends MyBaseAdapter<MailBean> {
                 @Override
                 public void onClick(View v) {
 //                    Toast.makeText(mContext, "delete", Toast.LENGTH_SHORT).show();
-                    dao.deleteMail(bean);
+                    presenter.delete(bean);
                     datas.remove(getLayoutPosition());
                     notifyItemRemoved(getLayoutPosition());
                     notifyPrice();
+                    quanXuanIsChick();
                 }
             });
             addsubview.setOnNumberChangeListener(new AddSubView.OnNumberChangeListener() {
                 @Override
                 public void onNumberChenge(int number) {
                     bean.setNumber(number);
-                    dao.updataMail(bean);
+                    presenter.updata(bean);
                     notifyPrice();
                     notifyItemChanged(getLayoutPosition());
                 }

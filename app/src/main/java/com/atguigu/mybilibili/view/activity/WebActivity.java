@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.utils.ClipboardUtil;
+import com.atguigu.mybilibili.view.base.BaseActivity;
 
 import butterknife.Bind;
 
@@ -32,7 +33,7 @@ public class WebActivity extends BaseActivity {
     private String title;
 
     @Override
-    protected String setUrl() {
+    public String setUrl() {
         return null;
     }
 
@@ -54,7 +55,7 @@ public class WebActivity extends BaseActivity {
                         share();
                         break;
                     case R.id.menu_copy:
-                        ClipboardUtil.setText(WebActivity.this,url);
+                        ClipboardUtil.setText(WebActivity.this, url);
                         break;
                 }
                 return true;
@@ -64,9 +65,7 @@ public class WebActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
         toolBar.inflateMenu(R.menu.menu_web);
-
         title = getIntent().getStringExtra("title");
         url = getIntent().getStringExtra("link");
         if (!TextUtils.isEmpty(title)) {
@@ -103,8 +102,7 @@ public class WebActivity extends BaseActivity {
                 super.onPageFinished(view, url);
             }
         });
-        if(!TextUtils.isEmpty(url)) {
-
+        if (!TextUtils.isEmpty(url)) {
             webview.loadUrl(url);
         }
     }
@@ -113,6 +111,17 @@ public class WebActivity extends BaseActivity {
     protected int setLayoutId() {
         return R.layout.activity_web;
     }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
     //分享
     private void share() {
         Intent intent = new Intent(Intent.ACTION_SEND);

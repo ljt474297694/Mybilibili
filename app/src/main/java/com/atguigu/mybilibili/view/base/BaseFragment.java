@@ -1,4 +1,4 @@
-package com.atguigu.mybilibili.view;
+package com.atguigu.mybilibili.view.base;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.atguigu.mybilibili.presenter.GetNetPresenter;
+import com.atguigu.mybilibili.view.IGetNetView;
 
 import butterknife.ButterKnife;
 
@@ -90,7 +91,7 @@ public abstract class BaseFragment extends Fragment implements IGetNetView {
     public abstract String setUrl();
 
     @Override
-    public boolean isShowView() {
+    public final boolean isShowView() {
         return isShow;
     }
 

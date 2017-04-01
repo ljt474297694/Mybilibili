@@ -3,6 +3,7 @@ package com.atguigu.mybilibili.view.activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -11,16 +12,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.atguigu.mybilibili.R;
-import com.atguigu.mybilibili.presenter.adapter.CartAdapter;
 import com.atguigu.mybilibili.model.dao.MailBean;
 import com.atguigu.mybilibili.model.dao.MailDAO;
+import com.atguigu.mybilibili.presenter.CartDaoPresenter;
+import com.atguigu.mybilibili.presenter.adapter.CartAdapter;
+import com.atguigu.mybilibili.view.ICartDaoView;
+import com.atguigu.mybilibili.view.base.BaseActivity;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class CartActivity extends BaseActivity {
+public class CartActivity extends BaseActivity implements ICartDaoView {
 
     @Bind(R.id.recyclerview)
     RecyclerView recyclerview;
@@ -36,9 +40,10 @@ public class CartActivity extends BaseActivity {
     TextView tvBianji;
     private MailDAO dao;
     private ArrayList<MailBean> allMail;
+    private CartDaoPresenter presenter;
 
     @Override
-    protected String setUrl() {
+    public String setUrl() {
         return null;
     }
 
@@ -52,12 +57,12 @@ public class CartActivity extends BaseActivity {
         setSupportActionBar(toolBar);
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        presenter = new CartDaoPresenter(this);
+        presenter.getAllData();
     }
 
     @Override
     protected void initData(String json, String error) {
-        dao = new MailDAO(this);
-        allMail = dao.getAllMail();
         if (allMail == null || allMail.size() == 0) {
             Toast.makeText(CartActivity.this, "还没有数据", Toast.LENGTH_SHORT).show();
         } else {
@@ -71,6 +76,16 @@ public class CartActivity extends BaseActivity {
     @Override
     protected int setLayoutId() {
         return R.layout.activity_cart;
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 
 
@@ -93,5 +108,11 @@ public class CartActivity extends BaseActivity {
                 Toast.makeText(CartActivity.this, "pay", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    @Override
+    public void getAll(ArrayList<MailBean> data) {
+        this.allMail = data;
+        Log.e("TAG", "CartActivity getAll()"+allMail.size());
     }
 }

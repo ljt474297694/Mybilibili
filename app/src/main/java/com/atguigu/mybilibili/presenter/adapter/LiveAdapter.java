@@ -16,7 +16,7 @@ import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.view.activity.LiveActivity;
 import com.atguigu.mybilibili.view.activity.SearchActivity;
 import com.atguigu.mybilibili.view.activity.WebActivity;
-import com.atguigu.mybilibili.model.bean.LiveBean;
+import com.atguigu.mybilibili.bean.LiveBean;
 import com.atguigu.mybilibili.utils.BitmapUtils;
 import com.atguigu.mybilibili.view.view.CircleImageView;
 import com.youth.banner.Banner;

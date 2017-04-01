@@ -8,10 +8,10 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.mybilibili.R;
-import com.atguigu.mybilibili.model.bean.PartitionBean;
+import com.atguigu.mybilibili.bean.PartitionBean;
 import com.atguigu.mybilibili.presenter.adapter.PartitionAdapter;
 import com.atguigu.mybilibili.utils.AppNetConfig;
-import com.atguigu.mybilibili.view.BaseFragment;
+import com.atguigu.mybilibili.view.base.BaseFragment;
 
 import java.util.List;
 

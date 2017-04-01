@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atguigu.mybilibili.R;
-import com.atguigu.mybilibili.model.bean.CartoonBean;
+import com.atguigu.mybilibili.bean.CartoonBean;
 import com.atguigu.mybilibili.utils.BitmapUtils;
 import com.atguigu.mybilibili.view.view.MyGridView;
 

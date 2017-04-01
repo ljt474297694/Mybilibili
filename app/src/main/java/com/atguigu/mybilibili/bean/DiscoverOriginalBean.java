@@ -1,4 +1,4 @@
-package com.atguigu.mybilibili.model.bean;
+package com.atguigu.mybilibili.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 

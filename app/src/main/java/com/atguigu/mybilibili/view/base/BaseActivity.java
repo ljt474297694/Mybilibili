@@ -1,4 +1,4 @@
-package com.atguigu.mybilibili.view;
+package com.atguigu.mybilibili.view.base;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import com.atguigu.mybilibili.presenter.GetNetPresenter;
+import com.atguigu.mybilibili.view.IGetNetView;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity1 extends AppCompatActivity implements IGetNetView {
+public abstract class BaseActivity extends AppCompatActivity implements IGetNetView {
 
     private boolean isShow;
     private GetNetPresenter mGetNetPresenter;
@@ -51,7 +52,7 @@ public abstract class BaseActivity1 extends AppCompatActivity implements IGetNet
     public abstract String setUrl();
 
     @Override
-    public boolean isShowView() {
+    public final boolean isShowView() {
         return isShow;
     }
 
