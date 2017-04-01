@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.atguigu.mybilibili.activity.WebActivity">
+    tools:context=".view.activity.WebActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"

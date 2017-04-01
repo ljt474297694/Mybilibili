@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.atguigu.mybilibili.activity.HuatiActivity">
+    tools:context=".view.activity.HuatiActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"

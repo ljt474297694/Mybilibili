@@ -4,9 +4,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.atguigu.mybilibili.view.MyGridView
+    <com.atguigu.mybilibili.view.view.MyGridView
         android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numColumns="3"></com.atguigu.mybilibili.view.MyGridView>
+        android:numColumns="3"></com.atguigu.mybilibili.view.view.MyGridView>
 </LinearLayout>

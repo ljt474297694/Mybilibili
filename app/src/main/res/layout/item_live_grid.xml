@@ -36,7 +36,7 @@
                 android:orientation="horizontal"
                 android:padding="5dp">
 
-                <com.atguigu.mybilibili.view.CircleImageView
+                <com.atguigu.mybilibili.view.view.CircleImageView
                     android:id="@+id/item_live_user_cover"
                     android:layout_width="30dp"
                     android:layout_height="30dp"

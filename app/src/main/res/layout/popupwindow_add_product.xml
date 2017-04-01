@@ -44,7 +44,7 @@
             android:layout_gravity="center"
             android:text="数量" />
 
-        <com.atguigu.mybilibili.view.AddSubView
+        <com.atguigu.mybilibili.view.view.AddSubView
             android:id="@+id/nas_goodinfo_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

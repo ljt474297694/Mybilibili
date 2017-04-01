@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.atguigu.mybilibili.activity.CartActivity">
+    tools:context=".view.activity.CartActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"

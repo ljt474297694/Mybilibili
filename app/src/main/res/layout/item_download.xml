@@ -18,7 +18,7 @@
         android:orientation="horizontal"
         android:padding="5dp">
 
-        <com.atguigu.mybilibili.view.MyProgressBar
+        <com.atguigu.mybilibili.view.view.MyProgressBar
             android:id="@+id/progresss"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -26,7 +26,7 @@
             app:progressWidth="4dp"
             app:srcColor="@color/blue"
             app:textColor="@color/black_80"
-            app:textSize="12sp"></com.atguigu.mybilibili.view.MyProgressBar>
+            app:textSize="12sp"></com.atguigu.mybilibili.view.view.MyProgressBar>
 
         <TextView
             android:id="@+id/tv_progress"

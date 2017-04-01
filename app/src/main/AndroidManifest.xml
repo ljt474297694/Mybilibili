@@ -58,7 +58,7 @@
         android:theme="@style/AppTheme"
         android:name=".app.MyApplication">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".view.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,25 +67,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.HuatiActivity"
+            android:name=".view.activity.HuatiActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.HuoDongActivity"
+            android:name=".view.activity.HuoDongActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.OriginalActivity"
+            android:name=".view.activity.OriginalActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SearchActivity"
+            android:name=".view.activity.SearchActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.VideoActivity" />
-        <activity android:name=".activity.WebActivity" />
-        <activity android:name=".activity.DownloadActivity" />
+        <activity android:name=".view.activity.VideoActivity" />
+        <activity android:name=".view.activity.WebActivity" />
+        <activity android:name=".view.activity.DownloadActivity" />
         <activity
-            android:name=".activity.LiveActivity"
+            android:name=".view.activity.LiveActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name=".activity.MailActivity" />
-        <activity android:name=".activity.CartActivity"></activity>
+        <activity android:name=".view.activity.MailActivity" />
+        <activity android:name=".view.activity.CartActivity"></activity>
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"

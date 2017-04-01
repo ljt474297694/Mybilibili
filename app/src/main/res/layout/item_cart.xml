@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="商品:1" />
 
-    <com.atguigu.mybilibili.view.AddSubView
+    <com.atguigu.mybilibili.view.view.AddSubView
         android:id="@+id/addsubview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
