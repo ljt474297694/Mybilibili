@@ -87,17 +87,17 @@ public class LiveFragment extends BaseFragment {
     }
 
     private void setAdapter(LiveBean.DataBean liveBean) {
-        Log.e("TAG", "LiveFragment setAdapter()"+isRefresh);
         if (adapter == null) {
             adapter = new LiveAdapter(mContext, liveBean);
         } else {
             adapter.refresh(liveBean);
             adapter.notifyDataSetChanged();
-            isRefresh = false;
         }
         if (!isRefresh) {
             recyclerview.setAdapter(adapter);
             recyclerview.setLayoutManager(new LinearLayoutManager(mContext));
+        }else{
+            isRefresh = false;
         }
     }
 

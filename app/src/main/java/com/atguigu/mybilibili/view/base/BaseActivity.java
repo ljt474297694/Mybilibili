@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import com.atguigu.mybilibili.presenter.GetNetPresenter;
+import com.atguigu.mybilibili.presenter.ResultListener;
 import com.atguigu.mybilibili.view.IGetNetView;
 
 import butterknife.ButterKnife;
@@ -14,7 +15,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends AppCompatActivity implements IGetNetView {
 
     private boolean isShow;
-    private GetNetPresenter mGetNetPresenter;
+    protected GetNetPresenter mGetNetPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IGetNetV
         }
         mGetNetPresenter.getDataFromNet();
     }
-
+    protected void getDataFromNet(String url, ResultListener listener){
+        mGetNetPresenter.getDataFromNet(url,listener);
+    }
     @Override
     protected void onDestroy() {
         isShow = false;

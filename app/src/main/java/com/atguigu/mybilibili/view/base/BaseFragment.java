@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.atguigu.mybilibili.presenter.GetNetPresenter;
+import com.atguigu.mybilibili.presenter.ResultListener;
 import com.atguigu.mybilibili.view.IGetNetView;
 
 import butterknife.ButterKnife;
@@ -37,7 +38,7 @@ public abstract class BaseFragment extends Fragment implements IGetNetView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = View.inflate(mContext, setLayoutId(), null);
+        View view = inflater.inflate(setLayoutId(),null);
         ButterKnife.bind(this, view);
         isShow = true;
         mGetNetPresenter = new GetNetPresenter(this);
@@ -70,6 +71,9 @@ public abstract class BaseFragment extends Fragment implements IGetNetView {
             return;
         }
         mGetNetPresenter.getDataFromNet();
+    }
+    protected void getDataFromNet(String url, ResultListener listener){
+        mGetNetPresenter.getDataFromNet(url,listener);
     }
 
     @Override

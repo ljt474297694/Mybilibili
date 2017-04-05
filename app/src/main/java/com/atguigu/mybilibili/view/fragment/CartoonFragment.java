@@ -90,11 +90,12 @@ public class CartoonFragment extends BaseFragment {
         }else{
             adapter.refresh(list);
             adapter.notifyDataSetChanged();
-            isRefresh = false;
         }
         if(!isRefresh) {
             recyclerview.setAdapter(adapter);
             recyclerview.setLayoutManager(new LinearLayoutManager(mContext));
+        }else{
+            isRefresh = false;
         }
 
     }

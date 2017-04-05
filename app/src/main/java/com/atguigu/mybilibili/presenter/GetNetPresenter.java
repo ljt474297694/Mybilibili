@@ -48,4 +48,9 @@ public class GetNetPresenter implements IGetNetPresenter {
     public void cancelCall() {
         mIGetNetModel.cancelCall();
     }
+
+    @Override
+    public void getDataFromNet(String url, ResultListener listener) {
+     mIGetNetModel.getDataFromNet(url,listener);
+    }
 }

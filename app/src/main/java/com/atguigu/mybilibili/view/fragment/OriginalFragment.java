@@ -89,11 +89,12 @@ public class OriginalFragment extends BaseFragment {
         } else {
             adapter.refresh(data);
             adapter.notifyDataSetChanged();
-            isRefresh = false;
         }
         if (!isRefresh) {
             recyclerview.setAdapter(adapter);
             recyclerview.setLayoutManager(new LinearLayoutManager(mContext));
+        } else {
+            isRefresh = false;
         }
     }
 

@@ -16,6 +16,6 @@ public interface IGetNetPresenter {
 
     void cancelCall();
 
-
+    void getDataFromNet(String url,ResultListener listener);
 
 }

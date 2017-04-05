@@ -1,6 +1,7 @@
 package com.atguigu.mybilibili.model;
 
 import com.atguigu.mybilibili.presenter.IGetNetPresenter;
+import com.atguigu.mybilibili.presenter.ResultListener;
 import com.atguigu.mybilibili.utils.NetUtils;
 import com.zhy.http.okhttp.request.RequestCall;
 
@@ -37,5 +38,19 @@ public class GetNetModel implements IGetNetModel {
         if (requestCall != null) {
             requestCall.cancel();
         }
+    }
+
+    @Override
+    public void getDataFromNet(String utl, final ResultListener listener) {
+        requestCall = NetUtils.getInstance().okhttpUtilsget(utl, new NetUtils.resultJson() {
+            @Override
+            public void onResponse(String json) {
+                if (listener != null) listener.onSuccess(json);
+            }
+            @Override
+            public void onError(String error) {
+                if (listener != null) listener.onError(error);
+            }
+        });
     }
 }

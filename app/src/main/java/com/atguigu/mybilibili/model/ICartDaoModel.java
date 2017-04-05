@@ -9,7 +9,7 @@ import com.atguigu.mybilibili.model.dao.MailBean;
  */
 
 public interface ICartDaoModel {
-    void   getAll();
+    void getAll();
 
     void updata(MailBean bean);
 

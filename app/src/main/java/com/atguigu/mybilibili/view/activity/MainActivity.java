@@ -15,12 +15,12 @@ import android.view.MotionEvent;
 
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.presenter.adapter.HomeAdapter;
+import com.atguigu.mybilibili.view.base.BaseActivity;
 import com.atguigu.mybilibili.view.fragment.CartoonFragment;
 import com.atguigu.mybilibili.view.fragment.DiscoverFragment;
 import com.atguigu.mybilibili.view.fragment.LiveFragment;
 import com.atguigu.mybilibili.view.fragment.PartitionFragment;
 import com.atguigu.mybilibili.view.fragment.RecommendFragment;
-import com.atguigu.mybilibili.view.base.BaseActivity;
 import com.wyt.searchbox.SearchFragment;
 import com.wyt.searchbox.custom.IOnSearchClickListener;
 
@@ -110,7 +110,9 @@ public class MainActivity extends BaseActivity {
 
         tabLayout.setupWithViewPager(viewpager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+
     }
+
 
 
     @Override
