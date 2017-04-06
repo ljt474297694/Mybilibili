@@ -38,7 +38,7 @@ public abstract class BaseFragment extends Fragment implements IGetNetView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(setLayoutId(),null);
+        View view = inflater.inflate(setLayoutId(), null);
         ButterKnife.bind(this, view);
         isShow = true;
         mGetNetPresenter = new GetNetPresenter(this);
@@ -47,9 +47,8 @@ public abstract class BaseFragment extends Fragment implements IGetNetView {
 
     protected abstract void initListener();
 
-    protected abstract
     @LayoutRes
-    int setLayoutId();
+    protected abstract int setLayoutId();
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -72,8 +71,9 @@ public abstract class BaseFragment extends Fragment implements IGetNetView {
         }
         mGetNetPresenter.getDataFromNet();
     }
-    protected void getDataFromNet(String url, ResultListener listener){
-        mGetNetPresenter.getDataFromNet(url,listener);
+
+    protected void getDataFromNet(String url, ResultListener listener) {
+        mGetNetPresenter.getDataFromNet(url, listener);
     }
 
     @Override

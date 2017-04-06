@@ -24,7 +24,9 @@
                 android:layout_marginLeft="-16dp"
                 android:background="@color/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
-                app:layout_scrollFlags="scroll|enterAlways">
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
                 <LinearLayout
                     android:id="@+id/navigation_layout"

@@ -1,7 +1,11 @@
 package com.atguigu.mybilibili.utils;
 
 import java.io.IOException;
+import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 import okio.Buffer;
@@ -53,7 +57,14 @@ public class ProgressResponseBody extends ResponseBody {
             public long read(Buffer sink, long byteCount) throws IOException {
                 long bytesRead = super.read(sink, byteCount);
                 totalBytesRead += bytesRead != -1 ? bytesRead : 0;
-                listener.onProgress(totalBytesRead, responseBody.contentLength(), bytesRead == -1);
+                Observable.just(totalBytesRead, responseBody.contentLength()).buffer(2)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<List<Long>>() {
+                            @Override
+                            public void accept(List<Long> value) throws Exception {
+                                listener.onProgress(value.get(0), value.get(1));
+                            }
+                        });
                 return bytesRead;
             }
         };
@@ -63,9 +74,8 @@ public class ProgressResponseBody extends ResponseBody {
         /**
          * @param progress 已经下载或上传字节数
          * @param total    总字节数
-         * @param done     是否完成
          */
-        void onProgress(long progress, long total, boolean done);
+        void onProgress(long progress, long total);
 
         void onResponse();
 

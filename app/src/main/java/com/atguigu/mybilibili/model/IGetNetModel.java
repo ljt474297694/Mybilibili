@@ -10,8 +10,10 @@ import com.atguigu.mybilibili.presenter.ResultListener;
 
 public interface IGetNetModel {
 
-    void getDataFromNet(String utl);
+    void getDataFromNet(String url);
 
     void cancelCall();
-    void getDataFromNet(String utl, ResultListener listener);
+
+    void getDataFromNet(String url, ResultListener listener);
+
 }

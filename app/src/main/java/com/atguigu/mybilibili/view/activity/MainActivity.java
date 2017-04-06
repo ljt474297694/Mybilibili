@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.presenter.adapter.HomeAdapter;
@@ -68,6 +69,9 @@ public class MainActivity extends BaseActivity {
                 } else if (menuItemId == R.id.menu_search) {
 //                    Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
                     startActivity(DownloadActivity.class);
+                }else if(menuItemId ==R.id.menu_bluetooth) {
+                    Toast.makeText(MainActivity.this, "蓝牙", Toast.LENGTH_SHORT).show();
+                    startActivity(BluetoothActivity.class);
                 }
                 return true;
             }

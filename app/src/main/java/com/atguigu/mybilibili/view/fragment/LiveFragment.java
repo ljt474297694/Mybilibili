@@ -101,9 +101,5 @@ public class LiveFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
 
-    }
 }

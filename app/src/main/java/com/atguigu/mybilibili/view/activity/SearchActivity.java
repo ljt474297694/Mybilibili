@@ -110,6 +110,7 @@ public class SearchActivity extends BaseActivity {
         fragments.add(new SearchFragment(data));
         fragments.add(new SearchFragment(data));
         fragments.add(new SearchFragment(data));
+
         adapter = new SearchAdapter(getSupportFragmentManager(), fragments, data.getNav().get(1).getTotal());
         viewpager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewpager);

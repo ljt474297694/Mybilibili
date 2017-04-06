@@ -12,7 +12,7 @@ import com.atguigu.mybilibili.view.IGetNetView;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity extends AppCompatActivity implements IGetNetView {
+public  abstract class BaseActivity extends AppCompatActivity implements IGetNetView {
 
     private boolean isShow;
     protected GetNetPresenter mGetNetPresenter;
@@ -65,9 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IGetNetV
 
     protected abstract void initData(String json, String error);
 
-    protected abstract
-    @LayoutRes
-    int setLayoutId();
+    protected abstract @LayoutRes int setLayoutId();
 
 
     protected void startActivity(Class activityClazz) {
@@ -75,12 +73,12 @@ public abstract class BaseActivity extends AppCompatActivity implements IGetNetV
     }
 
     @Override
-    public void onSuccess(String json) {
+    public final void onSuccess(String json) {
         initData(json, null);
     }
 
     @Override
-    public void onError(String error) {
+    public final void onError(String error) {
         initData(null, error);
     }
 

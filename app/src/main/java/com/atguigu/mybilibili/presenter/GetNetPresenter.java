@@ -51,6 +51,6 @@ public class GetNetPresenter implements IGetNetPresenter {
 
     @Override
     public void getDataFromNet(String url, ResultListener listener) {
-     mIGetNetModel.getDataFromNet(url,listener);
+        mIGetNetModel.getDataFromNet(url, listener);
     }
 }

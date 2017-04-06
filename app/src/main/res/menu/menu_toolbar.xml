@@ -14,5 +14,10 @@
         android:orderInCategory="100"
         android:title="下载"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_bluetooth"
+        android:orderInCategory="100"
+        android:title="蓝牙"
+        />
 
 </menu>

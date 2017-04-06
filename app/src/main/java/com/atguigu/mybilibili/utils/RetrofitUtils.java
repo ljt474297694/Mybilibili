@@ -1,8 +1,5 @@
 package com.atguigu.mybilibili.utils;
 
-import android.os.Handler;
-import android.os.Message;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,6 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
@@ -28,19 +28,6 @@ import retrofit2.http.GET;
 public class RetrofitUtils {
     private static final RetrofitUtils retrofitUtils = new RetrofitUtils();
 
-    private ProgressResponseBody.ProgressListener listener;
-    private Handler handler = new Handler(){
-        public void handleMessage(Message msg){
-            switch (msg.what) {
-                case  0:
-                    listener.onResponse();
-                    break;
-                case  1:
-                    listener.onFailure((String)msg.obj);
-                    break;
-            }
-        }
-    };
     private RetrofitUtils() {
     }
 
@@ -48,8 +35,7 @@ public class RetrofitUtils {
         return retrofitUtils;
     }
 
-    public  void download(final File file, final ProgressResponseBody.ProgressListener progressListener) {
-        this.listener = progressListener;
+    public void download(final File file, final ProgressResponseBody.ProgressListener progressListener) {
         Retrofit.Builder retrofit = new Retrofit.Builder()
                 .baseUrl("http://47.93.118.241:8081/");
         //使用OkHttpClient的拦截器去拦截Response  将自定义的ProgressReponseBody设置进去 得到监听的状态
@@ -87,7 +73,14 @@ public class RetrofitUtils {
                         fos.write(buffer, 0, len);
                         fos.flush();
                     }
-                   handler.sendEmptyMessage(0);
+                    Observable.just("0")
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<String>() {
+                                @Override
+                                public void accept(String error) throws Exception {
+                                    progressListener.onResponse();
+                                }
+                            });
 //                    Intent intent = new Intent("android.intent.action.INSTALL_PACKAGE");
 //                    intent.setData(Uri.parse("file:" + file.getAbsolutePath()));
 //                    startActivity(intent);
@@ -99,11 +92,14 @@ public class RetrofitUtils {
 //                    startActivity(intent);
 
                 } catch (IOException e) {
-                    e.printStackTrace();
-                    Message message = new Message();
-                    message.what=1;
-                    message.obj = e.getMessage();
-                    handler.sendMessage(message);
+                    Observable.just(e.getMessage())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<String>() {
+                                @Override
+                                public void accept(String error) throws Exception {
+                                    progressListener.onFailure(error);
+                                }
+                            });
                 } finally {
                     if (bis != null) {
                         try {
@@ -132,10 +128,14 @@ public class RetrofitUtils {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Message message = new Message();
-                message.what=1;
-                message.obj = t.getMessage();
-                handler.sendMessage(message);
+                Observable.just(t.getMessage())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<String>() {
+                            @Override
+                            public void accept(String error) throws Exception {
+                                progressListener.onFailure(error);
+                            }
+                        });
             }
         });
     }
@@ -144,6 +144,7 @@ public class RetrofitUtils {
         @GET("P2PInvest/app_new.apk")
         Call<ResponseBody> downLoadApk();
     }
+
     public static String formetFileSize(long fileS) {
         DecimalFormat df = new DecimalFormat("#.00");
         String fileSizeString = "";

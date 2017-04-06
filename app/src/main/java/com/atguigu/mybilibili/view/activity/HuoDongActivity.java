@@ -82,11 +82,12 @@ public class HuoDongActivity extends BaseActivity {
         } else {
             adapter.refresh(list);
             adapter.notifyDataSetChanged();
-            isRefresh = false;
         }
         if (!isRefresh) {
             recyclerview.setAdapter(adapter);
             recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        } else {
+            isRefresh = false;
         }
     }
 

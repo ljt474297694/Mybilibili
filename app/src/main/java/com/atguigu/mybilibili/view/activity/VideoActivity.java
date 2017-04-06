@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -41,6 +42,8 @@ public class VideoActivity extends BaseActivity {
     AppBarLayout appBarLayout;
     @Bind(R.id.floatingActionButton)
     FloatingActionButton floatingActionButton;
+    @Bind(R.id.coordinatorlayout)
+    CoordinatorLayout coordinatorlayout;
     boolean isOpen = true;
     List<BaseFragment> fragments;
 
@@ -115,7 +118,6 @@ public class VideoActivity extends BaseActivity {
             image ="http://i0.hdslb.com/bfs/archive/7c6c605d69914540c0f2ea1c48645113451228d9.jpg@384w_240h_1e_1c.webp";
         }
         BitmapUtils.glideToImage(image, ivHead);
-
     }
 
     @Override
