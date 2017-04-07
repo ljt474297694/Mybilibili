@@ -2,7 +2,7 @@ package com.atguigu.mybilibili.model;
 
 import com.atguigu.mybilibili.presenter.IDownLoadPresenter;
 import com.atguigu.mybilibili.utils.ProgressResponseBody;
-import com.atguigu.mybilibili.utils.RetrofitUtils;
+import com.atguigu.mybilibili.utils.RetrofitNetUtils;
 
 /**
  * Created by 李金桐 on 2017/4/6.
@@ -19,7 +19,7 @@ public class DownLoadModel implements IDownLoadModel {
 
     @Override
     public void downLoadApk() {
-        RetrofitUtils.getInstance().download(mIDownLoadPresenter.downFile(), new ProgressResponseBody.ProgressListener() {
+        RetrofitNetUtils.getInstance().download(mIDownLoadPresenter.downFile(), new ProgressResponseBody.ProgressListener() {
             @Override
             public void onProgress(long progress, long total) {
                 if (mIDownLoadPresenter != null) mIDownLoadPresenter.onProgress(progress, total);

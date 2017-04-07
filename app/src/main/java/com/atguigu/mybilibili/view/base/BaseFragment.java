@@ -77,12 +77,12 @@ public abstract class BaseFragment extends Fragment implements IGetNetView {
     }
 
     @Override
-    public void onSuccess(String json) {
+    public final void onSuccess(String json) {
         initData(json, null);
     }
 
     @Override
-    public void onError(String error) {
+    public final void onError(String error) {
         initData(null, error);
     }
 

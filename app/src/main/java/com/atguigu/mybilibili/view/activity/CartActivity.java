@@ -3,7 +3,6 @@ package com.atguigu.mybilibili.view.activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -113,6 +112,5 @@ public class CartActivity extends BaseActivity implements ICartDaoView {
     @Override
     public void getAll(ArrayList<MailBean> data) {
         this.allMail = data;
-        Log.e("TAG", "CartActivity getAll()"+allMail.size());
     }
 }

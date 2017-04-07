@@ -64,7 +64,8 @@ dependencies {
 //    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
 
-    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'//支持Rx2
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
 

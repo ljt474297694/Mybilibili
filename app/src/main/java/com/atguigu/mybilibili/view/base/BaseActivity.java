@@ -65,7 +65,8 @@ public  abstract class BaseActivity extends AppCompatActivity implements IGetNet
 
     protected abstract void initData(String json, String error);
 
-    protected abstract @LayoutRes int setLayoutId();
+    @LayoutRes
+    protected abstract int setLayoutId();
 
 
     protected void startActivity(Class activityClazz) {

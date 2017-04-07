@@ -16,6 +16,7 @@ import java.util.Map;
 
 public class GetNetModel implements IGetNetModel {
     private IGetNetPresenter mIGetNetPresenter;
+
     private HashMap<String, RequestCall> map;
 
     public GetNetModel(IGetNetPresenter iGetNetPresenter) {
@@ -36,6 +37,7 @@ public class GetNetModel implements IGetNetModel {
             public void onError(String error) {
                 if (mIGetNetPresenter != null) mIGetNetPresenter.onError(error);
                 map.remove(url);
+
             }
         }));
     }

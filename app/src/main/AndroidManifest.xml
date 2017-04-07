@@ -98,7 +98,8 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind" />
-        <activity android:name=".view.activity.BluetoothActivity"></activity>
+        <activity android:name=".view.activity.BluetoothActivity" />
+        <activity android:name=".view.activity.LoginActivity"></activity>
     </application>
 
 </manifest>

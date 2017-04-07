@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.atguigu.mybilibili.R;
 import com.atguigu.mybilibili.app.MyApplication;
 import com.atguigu.mybilibili.presenter.DownLoadPresenter;
-import com.atguigu.mybilibili.utils.RetrofitUtils;
+import com.atguigu.mybilibili.utils.RetrofitNetUtils;
 import com.atguigu.mybilibili.view.IDownloadView;
 import com.atguigu.mybilibili.view.activity.DownloadActivity;
 import com.atguigu.mybilibili.view.view.MyProgressBar;
@@ -93,8 +93,8 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             progresss.setProgress((int) l);
             int l1 = (int) (progress * 100);
             String pro = l1 / total + "%";
-            String p = RetrofitUtils.formetFileSize(progress);
-            String t = RetrofitUtils.formetFileSize(total);
+            String p = RetrofitNetUtils.formetFileSize(progress);
+            String t = RetrofitNetUtils.formetFileSize(total);
             tvProgress.setText(p + " / " + t + "\t" + pro);
         }
 

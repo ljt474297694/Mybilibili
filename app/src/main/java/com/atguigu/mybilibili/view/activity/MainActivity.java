@@ -88,6 +88,7 @@ public class MainActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 item.getItemId();
                 drawerlayout.closeDrawers();
+                startActivity(LoginActivity.class);
                 return true;
             }
         });
